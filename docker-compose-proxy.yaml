@@ -19,11 +19,12 @@ services:
         delay: 10s
         order: stop-first
     volumes:
-      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+      - /fxcloud/haproxy:/usr/local/etc/haproxy
     ports:
       - 15672:15672
       - 5672:5672
       - 80:80
+      - 443:443
     logging:
       driver: syslog
       options:
