@@ -9,7 +9,7 @@ services:
     #autoredeploy: true
     #target_num_containers: 2
     #sequential_deployment: true
-    deployment_strategy: high_availability
+    #deployment_strategy: high_availability
     deploy:
       replicas: 2
       update_config:
@@ -37,7 +37,7 @@ services:
     #autoredeploy: true
     #target_num_containers: 2
     #sequential_deployment: true
-    deployment_strategy: high_availability
+    #deployment_strategy: high_availability
     deploy:
       replicas: 2
       update_config:
@@ -65,7 +65,7 @@ services:
     #autoredeploy: true
     #target_num_containers: 2
     #sequential_deployment: true
-    deployment_strategy: high_availability
+    #deployment_strategy: high_availability
     deploy:
       replicas: 2
       update_config:
@@ -93,13 +93,13 @@ services:
     #autoredeploy: true
     #target_num_containers: 2
     #sequential_deployment: true
-    deployment_strategy: high_availability
+    #deployment_strategy: high_availability
     deploy:
       replicas: 2
       update_config:
         parallelism: 2
         delay: 10s
-        order: stop-first    
+        order: stop-first
     volumes:
       - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
     ports:

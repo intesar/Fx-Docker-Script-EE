@@ -9,7 +9,7 @@ services:
     #autoredeploy: true
     #target_num_containers: 2
     #sequential_deployment: true
-    deployment_strategy: high_availability
+    #deployment_strategy: high_availability
     deploy:
       replicas: 2
       update_config:
