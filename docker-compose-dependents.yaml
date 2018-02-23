@@ -89,7 +89,7 @@ services:
   fx-haproxy:
     image: haproxy:1.7
     #autodestroy: ALWAYS
-    autorestart: ON_FAILURE
+    #autorestart: ON_FAILURE
     #autoredeploy: true
     #target_num_containers: 2
     #sequential_deployment: true
