@@ -19,7 +19,7 @@ services:
         delay: 10s
         order: stop-first
     volumes:
-      - /fxcloud/haproxy:/usr/local/etc/haproxy
+      - /fxcloud/haproxy:/usr/local/etc/haproxy:ro
     ports:
       - 15672:15672
       - 5672:5672
