@@ -19,7 +19,7 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-    command: postgres -c 'shared_buffers=256MB' -c 'max_connections=200'
+    command: postgres -c 'shared_buffers=256MB' -c 'max_connections=300'
     volumes:
       - pgdata:/var/lib/postgresql/data
     logging:
