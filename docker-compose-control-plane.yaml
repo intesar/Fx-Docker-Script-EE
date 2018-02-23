@@ -1,0 +1,36 @@
+version: '3.5'
+# networking
+# volumes
+services:
+  fx-control-plane:
+    image: "fxlabs/control-plane:latest"
+    autodestroy: ALWAYS
+    autorestart: ON_FAILURE
+    autoredeploy: true
+    target_num_containers: 2
+    sequential_deployment: true
+    deployment_strategy: high_availability
+
+    environment:
+      # RabbitMQ
+      - RABBITMQ_HOST=${RABBITMQ_HOST}
+      - RABBITMQ_PORT=${RABBITMQ_PORT}
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+      - RABBITMQ_DEFAULT_VHOST=${RABBITMQ_DEFAULT_VHOST}
+      # Postgres
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      # ES
+      - ELASTICSEARCH_HOST=${ELASTICSEARCH_HOST}
+    logging:
+      driver: syslog
+      options:
+        tag: "{{.Name}}/{{.ID}}"
+      # ElasticSearch
+      # Redis
+    # inject rabbit-host, port, vhost, user-cp, user-cp-pass
+    # inject postgres, port, db, user, pass
+    # inject elasticsearch, port,
+    # inject redis, port

@@ -1,0 +1,80 @@
+version: '3.5'
+# networking
+# volumes
+services:
+  #fx-redis:
+  #  image: "redis:alpine"
+
+  fx-postgres:
+    image: "postgres:10.2"
+    autorestart: ON_FAILURE
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      placement:
+        constraints: [node.role == manager]
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    command: postgres -c 'shared_buffers=256MB' -c 'max_connections=200'
+    volumes:
+      - stg1_pgdata:/var/lib/postgresql/data
+    logging:
+      driver: syslog
+      options:
+        tag: "{{.Name}}/{{.ID}}"
+
+    # create db, user, pass
+
+  fx-elasticsearch:
+    image: "elasticsearch:5.0.0"
+    autorestart: ON_FAILURE
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      placement:
+        constraints: [node.role == manager]
+    environment:
+      - ES_JAVA_OPTS=${ELASTICSEARCH_MEM}
+    volumes:
+      - stg1_esdata:/usr/share/elasticsearch/data
+    logging:
+      driver: syslog
+      options:
+        tag: "{{.Name}}/{{.ID}}"
+
+  fx-rabbitmq:
+    image: "rabbitmq:3.7.3-management"
+    autorestart: ON_FAILURE
+    hostname: fx_rabbitmq_stg
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      placement:
+        constraints: [node.role == manager]
+    environment:
+      - RABBITMQ_ERLANG_COOKIE=${RABBITMQ_ERLANG_COOKIE}
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+      - RABBITMQ_DEFAULT_VHOST=${RABBITMQ_DEFAULT_VHOST}
+    logging:
+      driver: syslog
+      options:
+        tag: "{{.Name}}/{{.ID}}"
+
+    # create vhost, user-cp,
+    # TODO user-mail, user-sync, user-bot
+
+volumes:
+  stg1_pgdata:
+  stg1_esdata:

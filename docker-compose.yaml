@@ -1,0 +1,103 @@
+version: '3'
+# networking
+# volumes
+services:
+  fx-control-plane:
+    image: "fxlabs/control-plane:latest"
+    environment:
+      # RabbitMQ
+      - RABBITMQ_PORT=${RABBITMQ_PORT}
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+      - RABBITMQ_DEFAULT_VHOST=${RABBITMQ_DEFAULT_VHOST}
+      # Postgres
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      # ElasticSearch
+      # Redis
+    # inject rabbit-host, port, vhost, user-cp, user-cp-pass
+    # inject postgres, port, db, user, pass
+    # inject elasticsearch, port,
+    # inject redis, port
+
+  fx-bot-aas:
+    image: "fxlabs/bot-aas:latest"
+    environment:
+      # RabbitMQ
+      - RABBITMQ_PORT=${RABBITMQ_PORT}
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+      - RABBITMQ_DEFAULT_VHOST=${RABBITMQ_DEFAULT_VHOST}
+
+    # inject rabbit-host, port, vhost, user-mail, user-mail-pass
+
+  fx-bot:
+    image: "fxlabs/bot:latest"
+    environment:
+      # RabbitMQ
+      - RABBITMQ_PORT=${RABBITMQ_PORT}
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+      - RABBITMQ_DEFAULT_VHOST=${RABBITMQ_DEFAULT_VHOST}
+
+    # inject rabbit-host, port, vhost, user-bot, user-bot-pass
+
+  fx-mail-bot:
+    image: "fxlabs/mail-bot:latest"
+    environment:
+      # RabbitMQ
+      - RABBITMQ_PORT=${RABBITMQ_PORT}
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+      - RABBITMQ_DEFAULT_VHOST=${RABBITMQ_DEFAULT_VHOST}
+
+    # inject rabbit-host, port, vhost, user-mail, user-mail-pass
+
+  fx-git-sync-bot:
+    image: "fxlabs/git-sync-bot:latest"
+    environment:
+      # RabbitMQ
+      - RABBITMQ_PORT=${RABBITMQ_PORT}
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+      - RABBITMQ_DEFAULT_VHOST=${RABBITMQ_DEFAULT_VHOST}
+
+    # inject rabbit-host, port, vhost, user-sync, user-sync-pass
+
+  #fx-redis:
+  #  image: "redis:alpine"
+
+  fx-postgres:
+    image: "postgres:9.6.7"
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    # create db, user, pass
+
+  fx-elasticsearch:
+    image: "elasticsearch:5.0.0"
+    environment:
+      - ES_JAVA_OPTS=${ELASTICSEARCH_MEM}
+
+  fx-rabbitmq:
+    image: "rabbitmq:3.7.3-management"
+    hostname: fx_rabbitmq_stg
+    environment:
+      - RABBITMQ_ERLANG_COOKIE=${RABBITMQ_ERLANG_COOKIE}
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+      - RABBITMQ_DEFAULT_VHOST=${RABBITMQ_DEFAULT_VHOST}
+
+    # create vhost, user-cp,
+    # TODO user-mail, user-sync, user-bot
+
+  fx-haproxy:
+    image: haproxy:1.7
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+    ports:
+      - 15672:15672
+      - 5672:5672
+      - 80:80
