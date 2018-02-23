@@ -12,6 +12,9 @@ mkdir -p /fxcloud/elasticsearch/data
 mkdir -p /fxcloud/postgres/data
 mkdir -p /fxcloud/rabbitmq/data
 
+#Elastic search fix
+sysctl -w vm.max_map_count=262144
+
 source .env
 export $(cut -d= -f1 .env)
 
