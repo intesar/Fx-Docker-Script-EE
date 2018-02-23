@@ -4,7 +4,7 @@ version: '3.5'
 services:
   fx-control-plane:
     image: "fxlabs/control-plane:latest"
-    autodestroy: ALWAYS
+    #autodestroy: ALWAYS
     #autorestart: ON_FAILURE
     #autoredeploy: true
     #target_num_containers: 2
