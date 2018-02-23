@@ -21,7 +21,7 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     command: postgres -c 'shared_buffers=256MB' -c 'max_connections=300'
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - /fxcloud/postgres:/var/lib/postgresql/data
     logging:
       driver: syslog
       options:
@@ -42,7 +42,7 @@ services:
     environment:
       - ES_JAVA_OPTS=${ELASTICSEARCH_MEM}
     volumes:
-      - esdata:/usr/share/elasticsearch/data
+      - /fxcloud/elasticsearch:/usr/share/elasticsearch/data
     logging:
       driver: syslog
       options:
@@ -75,6 +75,6 @@ services:
     # TODO user-mail, user-sync, user-bot
 
 volumes:
-  pgdata:
-  esdata:
+  #pgdata:
+  #esdata:
   mqdata:
