@@ -21,7 +21,7 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     command: postgres -c 'shared_buffers=256MB' -c 'max_connections=200'
     volumes:
-      - stg1_pgdata:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
     logging:
       driver: syslog
       options:
@@ -42,7 +42,7 @@ services:
     environment:
       - ES_JAVA_OPTS=${ELASTICSEARCH_MEM}
     volumes:
-      - stg1_esdata:/usr/share/elasticsearch/data
+      - esdata:/usr/share/elasticsearch/data
     logging:
       driver: syslog
       options:
@@ -64,6 +64,8 @@ services:
       - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
       - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
       - RABBITMQ_DEFAULT_VHOST=${RABBITMQ_DEFAULT_VHOST}
+    volumes:
+      - mqdata:/var/lib/rabbitmq
     logging:
       driver: syslog
       options:
@@ -73,5 +75,6 @@ services:
     # TODO user-mail, user-sync, user-bot
 
 volumes:
-  stg1_pgdata:
-  stg1_esdata:
+  pgdata:
+  esdata:
+  mqdata:
