@@ -12,9 +12,6 @@ services:
     #deployment_strategy: high_availability
     deploy:
       replicas: 2
-      placement:
-        constraints:
-          - node.labels.fx-node == true
       update_config:
         parallelism: 2
         delay: 10s

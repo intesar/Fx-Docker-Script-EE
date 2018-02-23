@@ -13,8 +13,7 @@ services:
     deploy:
       replicas: 2
       placement:
-        constraints:
-          - node.labels.fx-node == true
+        constraints: [node.role == worker]
       update_config:
         parallelism: 2
         delay: 10s
@@ -44,8 +43,7 @@ services:
     deploy:
       replicas: 2
       placement:
-        constraints:
-          - node.labels.fx-node == true
+        constraints: [node.role == worker]
       update_config:
         parallelism: 2
         delay: 10s
@@ -75,8 +73,7 @@ services:
     deploy:
       replicas: 2
       placement:
-        constraints:
-          - node.labels.fx-node == true
+        constraints: [node.role == worker]
       update_config:
         parallelism: 2
         delay: 10s
@@ -106,8 +103,7 @@ services:
     deploy:
       replicas: 2
       placement:
-        constraints:
-          - node.labels.fx-node == true
+        constraints: [node.role == manager]
       update_config:
         parallelism: 2
         delay: 10s
