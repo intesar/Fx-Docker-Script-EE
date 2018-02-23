@@ -74,7 +74,7 @@ services:
     # create vhost, user-cp,
     # TODO user-mail, user-sync, user-bot
 
-volumes:
+#volumes:
   #pgdata:
   #esdata:
   #mqdata:
