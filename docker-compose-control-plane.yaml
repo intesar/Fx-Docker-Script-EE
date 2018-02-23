@@ -11,11 +11,13 @@ services:
     #sequential_deployment: true
     #deployment_strategy: high_availability
     deploy:
-      replicas: 2
+      replicas: 1
       update_config:
         parallelism: 2
         delay: 10s
         order: stop-first
+      placement:
+        constraints: [node.role == manager]
     environment:
       # RabbitMQ
       - RABBITMQ_HOST=${RABBITMQ_HOST}
