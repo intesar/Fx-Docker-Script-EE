@@ -21,6 +21,8 @@ services:
     volumes:
       - /fxcloud/haproxy:/usr/local/etc/haproxy:ro
     ports:
+      - 15671:15671
+      - 5671:5671
       - 15672:15672
       - 5672:5672
       - 80:80
