@@ -1,0 +1,35 @@
+version: '3.5'
+# networking
+# volumes
+services:
+  fx-haproxy:
+    image: haproxy:1.7
+    #autodestroy: ALWAYS
+    #autorestart: ON_FAILURE
+    #autoredeploy: true
+    #target_num_containers: 2
+    #sequential_deployment: true
+    #deployment_strategy: high_availability
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+      update_config:
+        parallelism: 2
+        delay: 10s
+        order: stop-first
+    volumes:
+      - /fxcloud/haproxy-dev:/usr/local/etc/haproxy:ro
+    ports:
+      - 5682:5682
+      - 15682:15682
+      - 5683:5683
+      - 15683:15683
+      - 5443:5443
+      - 5444:5444
+      - 9310:9310
+      - 9311:9311
+    logging:
+      driver: syslog
+      options:
+        tag: "{{.Name}}/{{.ID}}"
