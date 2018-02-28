@@ -19,12 +19,12 @@ services:
         delay: 10s
         order: stop-first
     environment:
-      # RabbitMQ
-      - RABBITMQ_HOST=${RABBITMQ_HOST}
-      - RABBITMQ_PORT=${RABBITMQ_PORT}
-      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
-      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
-      - RABBITMQ_DEFAULT_VHOST=${RABBITMQ_DEFAULT_VHOST}
+      # Fx-Connection
+      - FX_HOST=${RABBITMQ_HOST}
+      - FX_PORT=${RABBITMQ_PORT}
+      - FX_USERNAME=${RABBITMQ_DEFAULT_USER}
+      - FX_PASSWORD=${RABBITMQ_DEFAULT_PASS}
+      - FX_KEY=fx-default-region
     logging:
       driver: syslog
       options:
@@ -49,12 +49,11 @@ services:
         delay: 10s
         order: stop-first
     environment:
-      # RabbitMQ
-      - RABBITMQ_HOST=${RABBITMQ_HOST}
-      - RABBITMQ_PORT=${RABBITMQ_PORT}
-      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
-      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
-      - RABBITMQ_DEFAULT_VHOST=${RABBITMQ_DEFAULT_VHOST}
+      # Fx-Connection
+      - FX_HOST=${RABBITMQ_HOST}
+      - FX_PORT=${RABBITMQ_PORT}
+      - FX_USERNAME=${RABBITMQ_DEFAULT_USER}
+      - FX_PASSWORD=${RABBITMQ_DEFAULT_PASS}
     logging:
       driver: syslog
       options:
@@ -62,8 +61,8 @@ services:
 
     # inject rabbit-host, port, vhost, user-mail, user-mail-pass
 
-  fx-git-sync-bot:
-    image: "fxlabs/git-sync-bot:latest"
+  fx-vc-git-skill-bot:
+    image: "fxlabs/vc-git-skill-bot:latest"
     #autodestroy: ALWAYS
     #autorestart: ON_FAILURE
     #autoredeploy: true
@@ -80,11 +79,11 @@ services:
         order: stop-first
     environment:
       # RabbitMQ
-      - RABBITMQ_HOST=${RABBITMQ_HOST}
-      - RABBITMQ_PORT=${RABBITMQ_PORT}
-      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
-      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
-      - RABBITMQ_DEFAULT_VHOST=${RABBITMQ_DEFAULT_VHOST}
+      - FX_HOST=${RABBITMQ_HOST}
+      - FX_PORT=${RABBITMQ_PORT}
+      - FX_USERNAME=${RABBITMQ_DEFAULT_USER}
+      - FX_PASSWORD=${RABBITMQ_DEFAULT_PASS}
+      - FX_KEY=fx-gaas
     logging:
       driver: syslog
       options:
