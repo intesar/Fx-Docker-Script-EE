@@ -1,12 +1,7 @@
 #!/bin/bash
 
 docker node update --label-add fx-node=true NODE-ID
-# pull images on other nodes.
-#docker pull fxlabs/git-sync-bot
-docker pull fxlabs/vc-git-skill-bot
-docker pull fxlabs/bot
-docker pull fxlabs/mail-bot
-docker pull fxlabs/control-plane
+
 # create volumes -
 mkdir -p /fxcloud/elasticsearch/data
 mkdir -p /fxcloud/postgres/data
@@ -21,11 +16,20 @@ mkdir -p /fxcloud/elasticsearch/data
 mkdir -p /fxcloud/rabbitmq/data
 mkdir -p /fxcloud/haproxy
 
+cd /opt/fx/stg/Fx-Docker-Script
 source .env
 export $(cut -d= -f1 .env)
 
+# pull images on other nodes.
+docker pull fxlabs/control-plane
+docker pull fxlabs/vc-git-skill-bot
+docker pull fxlabs/bot
+docker pull fxlabs/notification-email-skill-bot
+docker pull fxlabs/issue-tracker-github-skill-bot
+docker pull fxlabs/issue-tracker-jira-skill-bot
+
+
 # Dev setup
-cd /opt/fx/stg/Fx-Docker-Script
 git pull --rebase
 mkdir -p /fxcloud/haproxy/dev1
 cp haproxy_dev1.cfg /fxcloud/haproxy/dev1/haproxy.cfg
@@ -42,6 +46,7 @@ docker stack deploy -c docker-compose-dependents.yaml stg
 docker stack deploy -c docker-compose-proxy.yaml stg
 
 # Stg update
+docker service rm stg_control-plane stg_fx-mail-bot stg_fx-vc-git-skill-bot stg_fx-bot stg_notification-email-skill-bot stg_issue-tracker-github-skill-bot stg_issue-tracker-jira-skill-bot
 docker stack deploy -c docker-compose-control-plane.yaml stg
 docker stack deploy -c docker-compose-dependents.yaml stg
 
