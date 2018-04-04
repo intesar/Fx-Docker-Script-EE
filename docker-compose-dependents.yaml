@@ -83,7 +83,6 @@ services:
       - FX_PORT=${RABBITMQ_PORT}
       - FX_USERNAME=${RABBITMQ_DEFAULT_USER}
       - FX_PASSWORD=${RABBITMQ_DEFAULT_PASS}
-      - FX_KEY=fx-gaas
     logging:
       driver: syslog
       options:
@@ -113,7 +112,6 @@ services:
       - FX_PORT=${RABBITMQ_PORT}
       - FX_USERNAME=${RABBITMQ_DEFAULT_USER}
       - FX_PASSWORD=${RABBITMQ_DEFAULT_PASS}
-      - FX_KEY=fx-gaas
     logging:
       driver: syslog
       options:
@@ -141,7 +139,6 @@ services:
       - FX_PORT=${RABBITMQ_PORT}
       - FX_USERNAME=${RABBITMQ_DEFAULT_USER}
       - FX_PASSWORD=${RABBITMQ_DEFAULT_PASS}
-      - FX_KEY=fx-gaas
     logging:
       driver: syslog
       options:
@@ -169,7 +166,6 @@ services:
       - FX_PORT=${RABBITMQ_PORT}
       - FX_USERNAME=${RABBITMQ_DEFAULT_USER}
       - FX_PASSWORD=${RABBITMQ_DEFAULT_PASS}
-      - FX_KEY=fx-gaas
     logging:
       driver: syslog
       options:
@@ -197,7 +193,6 @@ services:
       - FX_PORT=${RABBITMQ_PORT}
       - FX_USERNAME=${RABBITMQ_DEFAULT_USER}
       - FX_PASSWORD=${RABBITMQ_DEFAULT_PASS}
-      - FX_KEY=fx-gaas
     logging:
       driver: syslog
       options:
