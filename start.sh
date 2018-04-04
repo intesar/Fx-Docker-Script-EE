@@ -46,7 +46,7 @@ docker stack deploy -c docker-compose-dependents.yaml stg
 docker stack deploy -c docker-compose-proxy.yaml stg
 
 # Stg update
-docker service rm stg_fx-control-plane stg_fx-it-jira-skill-bot stg_fx-bot stg_fx-mail-bot stg_fx-vc-git-skill-bot stg_fx-it-github-skill-bot
+docker service rm stg_fx-control-plane stg_fx-mail-bot stg_fx-vc-git-skill-bot stg_fx-it-github-skill-bot stg_fx-it-jira-skill-bot stg_fx-bot
 docker stack deploy -c docker-compose-control-plane.yaml stg
 docker stack deploy -c docker-compose-dependents.yaml stg
 
