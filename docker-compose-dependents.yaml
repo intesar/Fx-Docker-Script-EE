@@ -145,7 +145,7 @@ services:
         tag: "{{.Name}}/{{.ID}}"
 
   fx-notify-slack-skill-bot:
-    image: "fxlabs/notify-slack-skill-bot:latest"
+    image: "fxlabs/notification-slack-skill-bot:latest"
     #autodestroy: ALWAYS
     #autorestart: ON_FAILURE
     #autoredeploy: true
