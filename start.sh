@@ -72,7 +72,7 @@ docker pull fxlabs/issue-tracker-jira-skill-bot
 docker pull fxlabs/cloud-aws-skill-bot
 docker pull fxlabs/notification-slack-skill-bot
 
-docker service rm stg_fx-control-plane stg_fx-mail-bot stg_fx-vc-git-skill-bot stg_fx-it-github-skill-bot stg_fx-it-jira-skill-bot stg_fx-bot stg_fx-cloud-aws-skill-bot stg_fx-notification-slack-skill-bot
+docker service rm stg_fx-control-plane
 docker stack deploy -c docker-compose-control-plane.yaml stg
 
 docker service rm stg_fx-mail-bot stg_fx-vc-git-skill-bot stg_fx-it-github-skill-bot stg_fx-it-jira-skill-bot stg_fx-bot stg_fx-cloud-aws-skill-bot stg_fx-notification-slack-skill-bot
