@@ -47,6 +47,8 @@ docker stack deploy -c docker-compose-proxy.yaml stg
 
 # Stg update
 
+ssh -i fx-staging root@stg1.fxlabs.io
+
 cd /opt/fx/stg/Fx-Docker-Script
 source .env
 export $(cut -d= -f1 .env)
@@ -59,15 +61,27 @@ docker pull fxlabs/notification-email-skill-bot
 docker pull fxlabs/issue-tracker-github-skill-bot
 docker pull fxlabs/issue-tracker-jira-skill-bot
 docker pull fxlabs/cloud-aws-skill-bot
-docker pull fxlabs/notify-slack-skill-bot
+docker pull fxlabs/notification-slack-skill-bot
 
-docker service rm stg_fx-control-plane stg_fx-mail-bot stg_fx-vc-git-skill-bot stg_fx-it-github-skill-bot stg_fx-it-jira-skill-bot stg_fx-bot stg_fx-cloud-aws-skill-bot stg_fx-notify-slack-skill-bot
+docker service rm stg_fx-control-plane stg_fx-mail-bot stg_fx-vc-git-skill-bot stg_fx-it-github-skill-bot stg_fx-it-jira-skill-bot stg_fx-bot stg_fx-cloud-aws-skill-bot stg_fx-notification-slack-skill-bot
 docker stack deploy -c docker-compose-control-plane.yaml stg
+
+docker service rm stg_fx-mail-bot stg_fx-vc-git-skill-bot stg_fx-it-github-skill-bot stg_fx-it-jira-skill-bot stg_fx-bot stg_fx-cloud-aws-skill-bot stg_fx-notification-slack-skill-bot
 docker stack deploy -c docker-compose-dependents.yaml stg
+docker service rm stg_fx-it-jira-skill-bot
+
+docker service rm stg_fx-vc-git-skill-bot
 
 docker restart [haproxy]
 
 # Prod update
+docker service rm prod_fx-control-plane prod_fx-mail-bot prod_fx-vc-git-skill-bot prod_fx-it-github-skill-bot prod_fx-it-jira-skill-bot prod_fx-bot prod_fx-cloud-aws-skill-bot prod_fx-notification-slack-skill-bot
+docker stack deploy -c docker-compose-control-plane.yaml prod
+
+docker service rm prod_fx-mail-bot prod_fx-vc-git-skill-bot prod_fx-it-github-skill-bot prod_fx-it-jira-skill-bot prod_fx-bot prod_fx-cloud-aws-skill-bot prod_fx-notification-slack-skill-bot
+docker stack deploy -c docker-compose-dependents.yaml prod
+docker service rm prod_fx-it-jira-skill-bot
+
 docker service rm prod_fx-control-plane prod_fx-bot prod_fx-git-sync-bot prod_fx-mail-bot
 docker stack deploy -c docker-compose-control-plane.yaml prod
 docker stack deploy -c docker-compose-dependents.yaml prod
