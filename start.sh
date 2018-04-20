@@ -45,6 +45,15 @@ sleep 60
 docker stack deploy -c docker-compose-dependents.yaml stg
 docker stack deploy -c docker-compose-proxy.yaml stg
 
+# Docker, Jenkins, Nexus
+https://hub.docker.com/
+Docker ID: fxlabs
+Password: FunctionLabs1234!
+
+Jenkins
+http://stg1.fxlabs.io:8083/
+admin/FunctionLabs1234!
+
 # Stg update
 
 ssh -i fx-staging root@stg1.fxlabs.io
