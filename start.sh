@@ -79,6 +79,11 @@ docker ps
 docker service ls
 df -h
 
+tail -f /var/log/syslog | grep fx
+tail -f /var/log/syslog | grep bot
+tail -f /var/log/syslog | grep control
+
+
 # Prod update
 docker service rm prod_fx-control-plane prod_fx-mail-bot prod_fx-vc-git-skill-bot prod_fx-it-github-skill-bot prod_fx-it-jira-skill-bot prod_fx-bot prod_fx-cloud-aws-skill-bot prod_fx-notification-slack-skill-bot
 docker stack deploy -c docker-compose-control-plane.yaml prod
