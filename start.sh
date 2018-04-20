@@ -72,6 +72,9 @@ docker service rm stg_fx-it-jira-skill-bot
 
 docker restart [haproxy]
 
+# remove unused images
+docker rmi $(docker images -a -q)
+
 docker ps
 docker service ls
 df -h
