@@ -81,6 +81,9 @@ docker service rm stg_fx-it-jira-skill-bot
 
 docker restart [haproxy]
 
+# You should never delete data services
+docker stack deploy -c docker-compose-data.yaml stg
+
 # remove unused images
 docker rmi $(docker images -a -q)
 
@@ -130,3 +133,9 @@ docker stack deploy -c docker-compose-dependents.yaml prod
  1467  docker ps -a
  1468  docker exec -it 25886a117ce3 bash
  1469  history
+
+## Disk ###
+sudo apt install ncdu
+ncdu /
+vi /etc/logrotate.d/rsyslog
+logrotate -v /etc/logrotate.d/rsyslog
