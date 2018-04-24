@@ -94,6 +94,7 @@ df -h
 tail -f /var/log/syslog | grep fx
 tail -f /var/log/syslog | grep bot
 tail -f /var/log/syslog | grep control
+tail -f /var/log/syslog | grep -C 5 exception
 
 # postgres
 docker exec -it <postgres>
@@ -139,3 +140,5 @@ sudo apt install ncdu
 ncdu /
 vi /etc/logrotate.d/rsyslog
 logrotate -v /etc/logrotate.d/rsyslog
+# truncate syslog
+dd if=/dev/null of=/var/log/syslog
