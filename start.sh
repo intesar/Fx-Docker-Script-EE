@@ -82,6 +82,7 @@ docker service rm stg_fx-it-jira-skill-bot
 docker restart [haproxy]
 
 # You should never delete data services
+docker service rm stg_fx-elasticsearch stg_fx-postgres stg_fx-rabbitmq
 docker stack deploy -c docker-compose-data.yaml stg
 
 # remove unused images
@@ -94,6 +95,7 @@ df -h
 tail -f /var/log/syslog | grep fx
 tail -f /var/log/syslog | grep bot
 tail -f /var/log/syslog | grep control
+tail -f /var/log/syslog | grep -C 5 exception
 
 # postgres
 docker exec -it <postgres>
@@ -137,5 +139,8 @@ docker stack deploy -c docker-compose-dependents.yaml prod
 ## Disk ###
 sudo apt install ncdu
 ncdu /
+df -h
 vi /etc/logrotate.d/rsyslog
 logrotate -v /etc/logrotate.d/rsyslog
+# truncate syslog
+dd if=/dev/null of=/var/log/syslog
