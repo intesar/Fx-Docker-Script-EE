@@ -132,7 +132,7 @@ docker service rm prod_fx-mail-bot prod_fx-vc-git-skill-bot prod_fx-it-github-sk
 docker stack deploy -c docker-compose-dependents.yaml prod
 
 docker service rm stg_fx-elasticsearch stg_fx-postgres stg_fx-rabbitmq
-docker stack deploy -c docker-compose-data.yaml stg
+docker stack deploy -c docker-compose-data-prod.yaml stg
 
 
  ################## Restart haproxy ##################
@@ -141,7 +141,7 @@ docker stack deploy -c docker-compose-data.yaml stg
  1468  docker exec -it 25886a117ce3 bash
  1469  history
 
-################## Disk ################## 
+################## Disk ##################
 sudo apt install ncdu
 ncdu /
 df -h
