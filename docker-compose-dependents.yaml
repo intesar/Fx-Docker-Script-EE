@@ -25,6 +25,7 @@ services:
       - FX_USERNAME=${RABBITMQ_DEFAULT_USER}
       - FX_PASSWORD=${RABBITMQ_DEFAULT_PASS}
       - FX_KEY=fx-default-region
+      - FX_SSL=${RABBITMQ_SSL}
     logging:
       driver: syslog
       options:
