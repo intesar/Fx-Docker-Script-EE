@@ -131,9 +131,12 @@ docker stack deploy -c docker-compose-control-plane.yaml prod
 docker service rm prod_fx-mail-bot prod_fx-vc-git-skill-bot prod_fx-it-github-skill-bot prod_fx-it-jira-skill-bot prod_fx-bot prod_fx-cloud-aws-skill-bot prod_fx-notification-slack-skill-bot
 docker stack deploy -c docker-compose-dependents.yaml prod
 
-docker service rm stg_fx-elasticsearch stg_fx-postgres stg_fx-rabbitmq
-docker stack deploy -c docker-compose-data-prod.yaml stg
+docker service rm prod_fx-elasticsearch prod_fx-postgres prod_fx-rabbitmq
+docker stack deploy -c docker-compose-data-prod.yaml prod
 
+# Mount additional disks and create a sub data directory
+mkdir -p /fxcloud/postgres/data
+mkdir -p /fxcloud/elasticsearch/data
 
  ################## Restart haproxy ##################
  1466  docker restart eba2c9960e54
