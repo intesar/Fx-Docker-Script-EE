@@ -32,6 +32,7 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       # ES
       - ELASTICSEARCH_HOST=${ELASTICSEARCH_HOST}
+      - JAVA_OPTS=-${CONTROL_PLANE_MEM}
     logging:
       driver: syslog
       options:
