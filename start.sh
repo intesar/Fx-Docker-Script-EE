@@ -107,11 +107,12 @@ psql -U fx_admin fx
 ######################################################
 ################## Prod update  ######################
 ######################################################
+git pull --rebase
 
 ssh -i fx-prod ubuntu@cloud.fxlabs.io
 sudo su
 cd /opt/fxlabs/Fx/Fx-Docker-Script
-git pull --rebase
+
 
 source .env-prod
 export $(cut -d= -f1 .env-prod)
