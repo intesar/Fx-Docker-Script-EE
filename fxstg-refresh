@@ -1,0 +1,14 @@
+#!/bin/bash
+
+cd /opt/fx/stg/Fx-Docker-Script
+source .env
+export $(cut -d= -f1 .env)
+
+docker ps
+read -p "Enter haproxy id : " id
+
+docker pull fxlabs/control-plane
+docker service rm stg_fx-control-plane
+docker stack deploy -c docker-compose-control-plane.yaml stg
+
+docker restart $id
