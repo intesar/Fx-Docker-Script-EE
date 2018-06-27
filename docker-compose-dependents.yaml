@@ -53,8 +53,6 @@ services:
       - FX_PORT=${RABBITMQ_PORT}
       - FX_USERNAME=${RABBITMQ_DEFAULT_USER}
       - FX_PASSWORD=${RABBITMQ_DEFAULT_PASS}
-    ports:
-      - 22:22
     logging:
       driver: syslog
       options:
