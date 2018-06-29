@@ -59,7 +59,7 @@ admin/FunctionLabs1234!
 ######################################################
 
 
-ssh -i fx-staging root@stg1.fxlabs.io
+ssh -i fx-staging.pem root@stg1.fxlabs.io
 
 cd /opt/fx/stg/Fx-Docker-Script
 source .env
