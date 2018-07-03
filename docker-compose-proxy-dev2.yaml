@@ -21,10 +21,10 @@ services:
     volumes:
       - /fxcloud/haproxy/dev2:/usr/local/etc/haproxy:ro
     ports:
-      - 5683:5683
-      - 15683:15683
-      - 5444:5444
-      - 9311:9311
+      - 5432:5432
+      - 15672:15672
+      - 5672:5672
+      - 9300:9300
     logging:
       driver: syslog
       options:

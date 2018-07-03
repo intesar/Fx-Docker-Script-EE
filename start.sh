@@ -31,10 +31,10 @@ docker pull fxlabs/issue-tracker-jira-skill-bot
 
 # Dev setup
 git pull --rebase
-mkdir -p /fxcloud/haproxy/dev1
-cp haproxy_dev1.cfg /fxcloud/haproxy/dev1/haproxy.cfg
-docker stack deploy -c docker-compose-data.yaml dev1
-docker stack deploy -c docker-compose-proxy-dev1.yaml dev1
+mkdir -p /fxcloud/haproxy
+cp haproxy_dev1.cfg /fxcloud/haproxy/haproxy.cfg
+docker stack deploy -c docker-compose-data.yaml dev
+docker stack deploy -c docker-compose-proxy.yaml dev
 
 # Stg setup
 
