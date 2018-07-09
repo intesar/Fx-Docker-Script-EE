@@ -4,11 +4,12 @@ cd /opt/fx/stg/Fx-Docker-Script
 source .env
 export $(cut -d= -f1 .env)
 
+
 set -x
 docker pull fxlabs/control-plane
 docker service rm stg_fx-control-plane
 docker stack deploy -c docker-compose-control-plane.yaml stg
-
+docker ps
 sudo docker ps -aqf "name=haproxy"
 docker restart $(!!)
 
