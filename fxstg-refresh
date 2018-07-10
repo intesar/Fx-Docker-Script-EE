@@ -1,12 +1,14 @@
 #!/bin/bash -x
 
 set -x
+docker ps
+read -p "Enter Haproxy ID:" $id
 docker pull fxlabs/control-plane
 docker service rm stg_fx-control-plane
 docker stack deploy -c docker-compose-control-plane.yaml stg
 docker ps
-sudo docker ps -aqf "name=haproxy"
-docker restart $(!!)
+
+docker restart $id
 
 sleep 30s
 
