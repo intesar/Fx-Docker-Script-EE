@@ -111,7 +111,7 @@ psql -U fx_admin fx
 
 ssh -i FX-UAT.pem ubuntu@13.56.210.25
 sudo su
-cd /opt/fx/stg/Fx-Docker-Script
+cd /opt/fx/uat/Fx-Docker-Script
 source .env
 export $(cut -d= -f1 .env)
 
