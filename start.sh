@@ -105,6 +105,55 @@ docker exec -it <postgres>
 psql -U fx_admin fx
 
 ######################################################
+################## UAT update  ######################
+######################################################
+
+
+ssh -i FX-UAT.pem ubuntu@13.56.210.25
+sudo su
+cd /opt/fx/stg/Fx-Docker-Script
+source .env
+export $(cut -d= -f1 .env)
+
+# pull images on other nodes.
+docker pull fxlabs/control-plane
+docker pull fxlabs/vc-git-skill-bot
+docker pull fxlabs/bot
+docker pull fxlabs/notification-email-skill-bot
+docker pull fxlabs/issue-tracker-github-skill-bot
+docker pull fxlabs/issue-tracker-jira-skill-bot
+docker pull fxlabs/cloud-aws-skill-bot
+docker pull fxlabs/notification-slack-skill-bot
+
+docker service rm uat_fx-control-plane
+docker stack deploy -c docker-compose-control-plane.yaml uat
+
+docker service rm uat_fx-mail-bot uat_fx-vc-git-skill-bot uat_fx-it-github-skill-bot uats_fx-it-jira-skill-bot uat_fx-cloud-aws-skill-bot uat_fx-notification-slack-skill-bot
+docker stack deploy -c docker-compose-dependents.yaml uat
+
+docker restart [haproxy]
+
+# You should never delete data services
+docker service rm uat_fx-elasticsearch uat_fx-postgres uat_fx-rabbitmq
+docker stack deploy -c docker-compose-data.yaml uat
+
+# remove unused images
+docker rmi $(docker images -a -q)
+
+docker ps
+docker service ls
+df -h
+
+tail -f /var/log/syslog | grep fx
+tail -f /var/log/syslog | grep bot
+tail -f /var/log/syslog | grep control
+tail -f /var/log/syslog | grep -C 5 exception
+
+# postgres
+docker exec -it <postgres>
+psql -U fx_admin fx
+
+######################################################
 ################## Prod update  ######################
 ######################################################
 git pull --rebase
