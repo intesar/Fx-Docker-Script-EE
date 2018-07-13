@@ -4,7 +4,7 @@ set -x
 docker ps
 read -p "Enter Haproxy ID:" id
 docker pull fxlabs/control-plane
-docker service rm uat_fx-control-plane
+docker service rm uat1_fx-control-plane
 docker stack deploy -c docker-compose-control-plane.yaml stg
 docker restart $id
 
@@ -18,7 +18,7 @@ docker pull fxlabs/issue-tracker-jira-skill-bot
 docker pull fxlabs/cloud-aws-skill-bot
 docker pull fxlabs/notification-slack-skill-bot
 
-docker service rm uat_fx-mail-bot uat_fx-vc-git-skill-bot uat_fx-it-github-skill-bot uats_fx-it-jira-skill-bot uat_fx-cloud-aws-skill-bot uat_fx-notification-slack-skill-bot
+docker service rm uat1_fx-mail-bot uat1_fx-vc-git-skill-bot uat1_fx-it-github-skill-bot uat1_fx-it-jira-skill-bot uat1_fx-cloud-aws-skill-bot uat1_fx-notification-slack-skill-bot
 docker stack deploy -c docker-compose-dependents.yaml stg
 set  +x
 echo "Successfully refreshed UAT Environment."
