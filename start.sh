@@ -203,3 +203,7 @@ vi /etc/logrotate.d/rsyslog
 logrotate -v /etc/logrotate.d/rsyslog
 # truncate syslog
 dd if=/dev/null of=/var/log/syslog
+
+#############Bot User
+rabbitmqctl add_user fx_bot_user fx_bot_uat_pwd
+rabbitmqctl set_permissions -p fx fx_bot_user "" ".*" ".*"
