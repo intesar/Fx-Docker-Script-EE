@@ -48,9 +48,11 @@ while [ "$taskStatus" == "WAITING" -o "$taskStatus" == "PROCESSING" ]
 				
 
 		if [ "$taskStatus" == "COMPLETED" ];then
-                  	 
+            echo "------------------------------------------------"
 			echo  "Run detail link http://13.56.210.25"${array[6]}
+			echo "-----------------------------------------------"
 			echo  "${array[7]}"
+			echo "-----------------------------------------------"
                         
                 	echo "Job run successfully completed"
                         exit 0
