@@ -183,7 +183,11 @@ docker service rm prod_fx-cloud-aws-skill-bot
 docker stack deploy -c docker-compose-dependents.yaml prod
 
 docker service rm prod_fx-elasticsearch prod_fx-postgres prod_fx-rabbitmq
+sudo sysctl -w vm.max_map_count=262144
 docker stack deploy -c docker-compose-data-prod.yaml prod
+
+docker service rm prod_fx-haproxy
+docker stack deploy -c docker-compose-proxy.yaml prod
 
 # Mount additional disks and create a sub data directory
 mkdir -p /fxcloud/postgres/data
