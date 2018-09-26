@@ -114,6 +114,27 @@ services:
       options:
         tag: "{{.Name}}/{{.ID}}"
 
+  fx-it-fx-skill-bot:
+    image: "fxlabs/issue-tracker-fx-skill-bot:latest"
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+      update_config:
+        parallelism: 2
+        delay: 10s
+        order: stop-first
+    environment:
+    # RabbitMQ
+    - FX_HOST=${RABBITMQ_HOST}
+    - FX_PORT=${RABBITMQ_PORT}
+    - FX_USERNAME=${RABBITMQ_DEFAULT_USER}
+    - FX_PASSWORD=${RABBITMQ_DEFAULT_PASS}
+    logging:
+      driver: syslog
+      options:
+        tag: "{{.Name}}/{{.ID}}"
+
   fx-notification-slack-skill-bot:
     image: "fxlabs/notification-slack-skill-bot:latest"
     #autodestroy: ALWAYS
@@ -167,3 +188,5 @@ services:
       driver: syslog
       options:
         tag: "{{.Name}}/{{.ID}}"
+
+
