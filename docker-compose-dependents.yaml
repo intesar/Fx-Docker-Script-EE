@@ -69,7 +69,7 @@ services:
     #sequential_deployment: true
     #deployment_strategy: high_availability
     deploy:
-      replicas: 1
+      replicas: 2
       placement:
         constraints: [node.role == manager]
       update_config:
