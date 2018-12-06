@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /opt/fx/uat/Fx-Docker-Script
+cd /opt/fx/uat/Fx-Docker-Script/ha
 source .env
 export $(cut -d= -f1 .env)
 
