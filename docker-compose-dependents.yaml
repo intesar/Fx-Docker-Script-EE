@@ -28,7 +28,7 @@ services:
       driver: syslog
       options:
         tag: "{{.Name}}/{{.ID}}"
-        syslog-address: tcp://13.57.38.199:5140
+
     # inject rabbit-host, port, vhost, user-mail, user-mail-pass
 
   fx-vc-git-skill-bot:
@@ -57,7 +57,7 @@ services:
       driver: syslog
       options:
         tag: "{{.Name}}/{{.ID}}"
-        syslog-address: tcp://13.57.38.199:5140
+
     # inject rabbit-host, port, vhost, user-sync, user-sync-pass
 
   fx-it-github-skill-bot:
@@ -86,7 +86,7 @@ services:
       driver: syslog
       options:
         tag: "{{.Name}}/{{.ID}}"
-        syslog-address: tcp://13.57.38.199:5140
+
   fx-it-jira-skill-bot:
     image: "fxlabs/issue-tracker-jira-skill-bot:latest"
     #autodestroy: ALWAYS
@@ -113,7 +113,7 @@ services:
       driver: syslog
       options:
         tag: "{{.Name}}/{{.ID}}"
-        syslog-address: tcp://13.57.38.199:5140
+
   fx-it-fx-skill-bot:
     image: "fxlabs/issue-tracker-fx-skill-bot:latest"
     deploy:
@@ -134,7 +134,7 @@ services:
       driver: syslog
       options:
         tag: "{{.Name}}/{{.ID}}"
-        syslog-address: tcp://13.57.38.199:5140
+
   fx-notification-slack-skill-bot:
     image: "fxlabs/notification-slack-skill-bot:latest"
     #autodestroy: ALWAYS
@@ -161,7 +161,7 @@ services:
       driver: syslog
       options:
         tag: "{{.Name}}/{{.ID}}"
-        syslog-address: tcp://13.57.38.199:5140
+
   fx-cloud-aws-skill-bot:
     image: "fxlabs/cloud-aws-skill-bot:latest"
     #autodestroy: ALWAYS
@@ -188,5 +188,5 @@ services:
       driver: syslog
       options:
         tag: "{{.Name}}/{{.ID}}"
-        syslog-address: tcp://13.57.38.199:5140
+
 

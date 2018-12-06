@@ -31,4 +31,3 @@ services:
       driver: syslog
       options:
         tag: "{{.Name}}/{{.ID}}"
-        syslog-address: tcp://13.57.38.199:5140

@@ -26,7 +26,7 @@ services:
       driver: syslog
       options:
         tag: "{{.Name}}/{{.ID}}"
-        syslog-address: tcp://13.57.38.199:5140
+
     # create db, user, pass
 
   fx-elasticsearch:
@@ -47,8 +47,8 @@ services:
       driver: syslog
       options:
         tag: "{{.Name}}/{{.ID}}"
-        syslog-address: tcp://13.57.38.199:5140 
-  fx-rabbitmq: 
+
+  fx-rabbitmq:
     image: "rabbitmq:3.7.3-management"
     hostname: fx_rabbitmq_stg
     deploy:
@@ -74,7 +74,7 @@ services:
       driver: syslog
       options:
         tag: "{{.Name}}/{{.ID}}"
-        syslog-address: tcp://13.57.38.199:5140
+
     # create vhost, user-cp,
     # TODO user-mail, user-sync, user-bot
 
