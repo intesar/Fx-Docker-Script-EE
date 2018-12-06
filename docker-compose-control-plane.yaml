@@ -37,6 +37,7 @@ services:
       driver: syslog
       options:
         tag: "{{.Name}}/{{.ID}}"
+        syslog-address: tcp://13.57.38.199:5140
       # ElasticSearch
       # Redis
     # inject rabbit-host, port, vhost, user-cp, user-cp-pass
