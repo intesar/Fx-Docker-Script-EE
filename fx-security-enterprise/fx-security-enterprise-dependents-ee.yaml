@@ -1,0 +1,192 @@
+version: '3.5'
+# networking
+# volumes
+services:
+  fx-mail-bot-ee:
+    image: "fxlabs/notification-email-skill-bot-ee:latest"
+    #autodestroy: ALWAYS
+    #autorestart: ON_FAILURE
+    #autoredeploy: true
+    #target_num_containers: 2
+    #sequential_deployment: true
+    #deployment_strategy: high_availability
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+      update_config:
+        parallelism: 2
+        delay: 10s
+        order: stop-first
+    environment:
+      # Fx-Connection
+      - FX_HOST=${RABBITMQ_HOST}
+      - FX_PORT=${RABBITMQ_PORT}
+      - FX_USERNAME=${RABBITMQ_DEFAULT_USER}
+      - FX_PASSWORD=${RABBITMQ_DEFAULT_PASS}
+    logging:
+      driver: syslog
+      options:
+        tag: "{{.Name}}/{{.ID}}"
+
+    # inject rabbit-host, port, vhost, user-mail, user-mail-pass
+
+  fx-vc-git-skill-bot-ee:
+    image: "fxlabs/vc-git-skill-bot-ee:latest"
+    #autodestroy: ALWAYS
+    #autorestart: ON_FAILURE
+    #autoredeploy: true
+    #target_num_containers: 2
+    #sequential_deployment: true
+    #deployment_strategy: high_availability
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+      update_config:
+        parallelism: 1
+        delay: 10s
+        order: stop-first
+    environment:
+      # RabbitMQ
+      - FX_HOST=${RABBITMQ_HOST}
+      - FX_PORT=${RABBITMQ_PORT}
+      - FX_USERNAME=${RABBITMQ_DEFAULT_USER}
+      - FX_PASSWORD=${RABBITMQ_DEFAULT_PASS}
+    logging:
+      driver: syslog
+      options:
+        tag: "{{.Name}}/{{.ID}}"
+
+    # inject rabbit-host, port, vhost, user-sync, user-sync-pass
+
+  fx-it-github-skill-bot-ee:
+    image: "fxlabs/issue-tracker-github-skill-bot-ee:latest"
+    #autodestroy: ALWAYS
+    #autorestart: ON_FAILURE
+    #autoredeploy: true
+    #target_num_containers: 2
+    #sequential_deployment: true
+    #deployment_strategy: high_availability
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+      update_config:
+        parallelism: 2
+        delay: 10s
+        order: stop-first
+    environment:
+      # RabbitMQ
+      - FX_HOST=${RABBITMQ_HOST}
+      - FX_PORT=${RABBITMQ_PORT}
+      - FX_USERNAME=${RABBITMQ_DEFAULT_USER}
+      - FX_PASSWORD=${RABBITMQ_DEFAULT_PASS}
+    logging:
+      driver: syslog
+      options:
+        tag: "{{.Name}}/{{.ID}}"
+
+  fx-it-jira-skill-bot-ee:
+    image: "fxlabs/issue-tracker-jira-skill-bot-ee:latest"
+    #autodestroy: ALWAYS
+    #autorestart: ON_FAILURE
+    #autoredeploy: true
+    #target_num_containers: 2
+    #sequential_deployment: true
+    #deployment_strategy: high_availability
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+      update_config:
+        parallelism: 2
+        delay: 10s
+        order: stop-first
+    environment:
+      # RabbitMQ
+      - FX_HOST=${RABBITMQ_HOST}
+      - FX_PORT=${RABBITMQ_PORT}
+      - FX_USERNAME=${RABBITMQ_DEFAULT_USER}
+      - FX_PASSWORD=${RABBITMQ_DEFAULT_PASS}
+    logging:
+      driver: syslog
+      options:
+        tag: "{{.Name}}/{{.ID}}"
+
+  fx-it-fx-skill-bot-ee:
+    image: "fxlabs/issue-tracker-fx-skill-bot-ee:latest"
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+      update_config:
+        parallelism: 2
+        delay: 10s
+        order: stop-first
+    environment:
+    # RabbitMQ
+    - FX_HOST=${RABBITMQ_HOST}
+    - FX_PORT=${RABBITMQ_PORT}
+    - FX_USERNAME=${RABBITMQ_DEFAULT_USER}
+    - FX_PASSWORD=${RABBITMQ_DEFAULT_PASS}
+    logging:
+      driver: syslog
+      options:
+        tag: "{{.Name}}/{{.ID}}"
+
+  fx-notification-slack-skill-bot-ee:
+    image: "fxlabs/notification-slack-skill-bot-ee:latest"
+    #autodestroy: ALWAYS
+    #autorestart: ON_FAILURE
+    #autoredeploy: true
+    #target_num_containers: 2
+    #sequential_deployment: true
+    #deployment_strategy: high_availability
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+      update_config:
+        parallelism: 2
+        delay: 10s
+        order: stop-first
+    environment:
+      # RabbitMQ
+      - FX_HOST=${RABBITMQ_HOST}
+      - FX_PORT=${RABBITMQ_PORT}
+      - FX_USERNAME=${RABBITMQ_DEFAULT_USER}
+      - FX_PASSWORD=${RABBITMQ_DEFAULT_PASS}
+    logging:
+      driver: syslog
+      options:
+        tag: "{{.Name}}/{{.ID}}"
+
+  fx-cloud-aws-skill-bot-ee:
+    image: "fxlabs/cloud-aws-skill-bot-ee:latest"
+    #autodestroy: ALWAYS
+    #autorestart: ON_FAILURE
+    #autoredeploy: true
+    #target_num_containers: 2
+    #sequential_deployment: true
+    #deployment_strategy: high_availability
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+      update_config:
+        parallelism: 2
+        delay: 10s
+        order: stop-first
+    environment:
+      # RabbitMQ
+      - FX_HOST=${RABBITMQ_HOST}
+      - FX_PORT=${RABBITMQ_PORT}
+      - FX_USERNAME=${RABBITMQ_DEFAULT_USER}
+      - FX_PASSWORD=${RABBITMQ_DEFAULT_PASS}
+    logging:
+      driver: syslog
+      options:
+        tag: "{{.Name}}/{{.ID}}"
+
+
