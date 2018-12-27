@@ -103,7 +103,9 @@ docker exec $(docker ps -q -f name=fx-rabbitmq) rabbitmqctl set_permissions -p f
 docker stack deploy -c fx-security-enterprise-control-plane-ee.yaml prod
 sleep 60
 docker stack deploy -c fx-security-enterprise-dependents-ee.yaml prod
-sleep 60
+sleep 50
+sudo cat /fx-security-enterprise/haproxy/fxcloud.crt /fx-security-enterprise/haproxy/fxcloud.key \ | sudo tee /fx-security-enterprise/haproxy/fxcloud.pem
+sleep 10
 docker stack deploy -c fx-security-enterprise-haproxy-ee.yaml prod
 sleep 10
 docker service ls
