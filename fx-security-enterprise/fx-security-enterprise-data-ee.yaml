@@ -38,7 +38,7 @@ services:
       - ES_JAVA_OPTS=${ELASTICSEARCH_MEM}
     volumes:
       - esdata:/usr/share/elasticsearch/data
-	  - /home/ubuntu/Fx-Docker-Script/fx-security-enterprise/elasticsearch.yaml:/usr/share/elasticsearch/config/elasticseearch.yml
+	  - /hhome/ubuntu/Fx-Docker-Script/fx-security-enterprise/elasticsearch.yaml:/usr/share/elasticsearch/config/elasticseearch.yml
     logging:
       driver: syslog
       options:
