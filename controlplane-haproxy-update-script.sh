@@ -1,6 +1,7 @@
 ﻿#!/bin/bash -x
 # FXLABS UAT services update-script https://fxlabs.io/
 # 2019-01-09
+#
 
 # Installer folder should have the following files
 # 1.	.env
