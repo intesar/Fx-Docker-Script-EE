@@ -25,7 +25,6 @@ echo "Pulling latest build fxlabs images"
 #3.	Pull fx-security-enterprise docker images (based on the tag input)
 docker pull fxlabs/control-plane-ee:"$tag"
 docker pull fxlabs/vc-git-skill-bot-ee:"$tag"
-docker pull fxlabs/bot-ee:"$tag"
 docker pull fxlabs/notification-email-skill-bot-ee:"$tag"
 docker pull fxlabs/issue-tracker-github-skill-bot-ee:"$tag"
 docker pull fxlabs/issue-tracker-jira-skill-bot-ee:"$tag"
