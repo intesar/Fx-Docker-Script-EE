@@ -16,7 +16,7 @@
 # cd /path-of-these-files eg. cd /Fx-Docker-Script 
 # sudo su
 # "run below command from path of the above files
-# ./fx-prod-update-script.sh
+# ./prod-update-script.sh
 
 read -p "Enter tag: " tag
 
