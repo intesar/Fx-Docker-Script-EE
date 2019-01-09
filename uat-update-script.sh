@@ -78,5 +78,7 @@ sleep 10
 #docker rmi $(docker images -a -q)
 
 docker service ls
+sleep 5
 docker ps
+sleep 5
 echo "Successfully refreshed UAT Environment."
