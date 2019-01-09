@@ -66,5 +66,5 @@ sleep 10
 docker service ls
 sleep 5
 docker ps
-sleep 5
+sleep 4
 echo "Successfully refreshed UAT Environment."
