@@ -13,6 +13,7 @@
 
 read -p "Enter tag: " tag
 
+echo "## INSTALLING DOCKER ##"
 #1.	Install docker (latest)
 sudo apt update
 sudo apt install apt-transport-https ca-certificates curl software-properties-common -y
@@ -25,10 +26,11 @@ sudo systemctl start docker
 sudo systemctl enable docker
 #sudo systemctl status docker
 
+echo "## ACTIVATING DOCKER-SWARM MODE ##"
 #2.	Activate docker-swarm mode
 sudo docker swarm init
 
-echo "## Pulling latest build fxlabs images ##"
+echo "## PULLING LATEST BUILD FXLABS IMAGES ##"
 
 #3.	Pull fx-security-enterprise docker images (based on the tag input)
 docker pull fxlabs/control-plane-ee:"$tag"
@@ -38,7 +40,7 @@ docker pull fxlabs/notification-email-skill-bot-ee:"$tag"
 docker pull fxlabs/issue-tracker-github-skill-bot-ee:"$tag"
 docker pull fxlabs/issue-tracker-jira-skill-bot-ee:"$tag"
 
-echo "## Creating required volumes ##"
+echo "## CREATING REQUIRED VOLUMES ##"
 
 #4.	Create folder for docker volumes. Optionally, user can mount external drives at these locations.
 mkdir -p /fx-security-enterprise/postgres/data
