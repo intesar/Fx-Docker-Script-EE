@@ -11,7 +11,7 @@
 # 6.	haproxy.cfg
 # 7.	fx-security-enterprise-installer.sh
 
-read -p "Enter tag: " tag
+read -p "Enter image tag: " tag
 
 echo "## INSTALLING DOCKER ##"
 #1.	Install docker (latest)
@@ -102,9 +102,12 @@ sed -i "s|RABBITMQ_DEFAULT_PASS=.*|RABBITMQ_DEFAULT_PASS=$RABBITMQ_DEFAULT_PASS|
 RABBITMQ_AGENT_PASS="$(openssl rand -base64 12)"
 sed -i "s|RABBITMQ_AGENT_PASS=.*|RABBITMQ_AGENT_PASS=$RABBITMQ_AGENT_PASS|g" .env
 
+echo "## ENTER STACK NAME TAG ##"
+read -p "Enter stack name tag: " tag
+
 echo "## DEPLOYING POSTGRES, ELASTICSEARCH & RABBITMQ SERVICES  ##"
 # Run Docker stack deploy
-docker stack deploy -c fx-security-enterprise-data-ee.yaml prod
+docker stack deploy -c fx-security-enterprise-data-ee.yaml "$tag"
 sleep 30
 
 # RabbitMQ Scanbot password (These commands need to executed on RabbitMQ container)
@@ -112,11 +115,11 @@ docker exec $(docker ps -q -f name=fx-rabbitmq) rabbitmqctl add_user fx_bot_user
 docker exec $(docker ps -q -f name=fx-rabbitmq) rabbitmqctl set_permissions -p fx fx_bot_user "" ".*" ".*"
 
 echo "## DEPLOYING CONTROL-PLANE SERVICE ##"
-docker stack deploy -c fx-security-enterprise-control-plane-ee.yaml prod
+docker stack deploy -c fx-security-enterprise-control-plane-ee.yaml "$tag"
 sleep 60
 
 echo "## DEPLOYING DEPENDENT SERVICES ##"
-docker stack deploy -c fx-security-enterprise-dependents-ee.yaml prod
+docker stack deploy -c fx-security-enterprise-dependents-ee.yaml "$tag"
 sleep 50
 
 echo "## GENERATING PEM FILE FOR HAPROXY ##"
@@ -124,8 +127,8 @@ sudo cat /fx-security-enterprise/haproxy/fxcloud.crt /fx-security-enterprise/hap
 sleep 10
 
 echo "## DEPLOYING HAPROXY SERVICE ##"
-docker stack deploy -c fx-security-enterprise-haproxy-ee.yaml prod
+docker stack deploy -c fx-security-enterprise-haproxy-ee.yaml "$tag"
 sleep 10
 docker service ls
 sleep 5
-echo "SERVICES HAVE BEEN DEPLOYED SUCCESSFULLY!!!"
+echo "$tag" "SERVICES HAVE BEEN DEPLOYED SUCCESSFULLY!!!"

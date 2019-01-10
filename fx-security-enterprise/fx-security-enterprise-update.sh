@@ -18,9 +18,9 @@
 # "run below command from path of the above files
 # ./fx-security-enterprise-update.sh
 
-read -p "Enter tag: " tag
+read -p "Enter image tag: " tag
 
-echo "Pulling latest build fxlabs images"
+echo "## PULLING LATEST BUILD FXLABS IMAGES ##"
 
 #3.	Pull fx-security-enterprise docker images (based on the tag input)
 docker pull fxlabs/control-plane-ee:"$tag"
@@ -35,43 +35,40 @@ docker pull fxlabs/notification-slack-skill-bot-ee:"$tag"
 
 source .env
 export $(cut -d= -f1 .env)
+echo "ENTER STACK NAME TAG "
+
+read -p "Enter stack name tag: " tag
 
 #Removing & Deploying Control-Plane Service
 
-echo "Removing Control-Plane Service"
-docker service rm prod_fx-control-plane-ee
+echo "## REMOVING CONTROL-PLANE SERVICE ##"
+docker service rm "$tag"_fx-control-plane-ee
 sleep 3
 
-echo "Deploying Control-Plane Service"
-docker stack deploy -c fx-security-enterprise-control-plane-ee.yaml prod
+echo "DEPLOYING CONTROL-PLANE SERVICE"
+docker stack deploy -c fx-security-enterprise-control-plane-ee.yaml "$tag"
 sleep 60
 
 ##Removing & Deploying dependent services
 
-echo "Removing Dependent Services"
-docker service rm prod_fx-mail-bot-ee prod_fx-vc-git-skill-bot-ee prod_fx-it-github-skill-bot-ee prod_fx-it-jira-skill-bot-ee prod_fx-cloud-aws-skill-bot-ee prod_fx-notification-slack-skill-bot-ee
+echo "## REMOVING DEPENDENT SERVICES ##"
+docker service rm "$tag"_fx-it-fx-skill-bot-ee "$tag"_fx-mail-bot-ee "$tag"_fx-vc-git-skill-bot-ee "$tag"_fx-it-github-skill-bot-ee "$tag"_fx-it-jira-skill-bot-ee "$tag"_fx-cloud-aws-skill-bot-ee "$tag"_fx-notification-slack-skill-bot-ee
 sleep 10
 
-echo "Deploying Dependent Services"
-docker stack deploy -c fx-security-enterprise-dependents-ee.yaml prod
+echo "## DEPLOYING DEPENDENT SERVICES ##"
+docker stack deploy -c fx-security-enterprise-dependents-ee.yaml "$tag"
 sleep 30
 
-##Removing & Deploying Haproxy
+##Removing & Deploying Haproxy##
 
-echo "Removing Haproxy Service"
-docker service rm prod_fx-haproxy
+echo "## REMOVING HAPROXY SERVICE ##"
+docker service rm "$tag"_fx-haproxy
 sleep 3
 
-echo "Deploying Haproxy Service"
-docker stack deploy -c fx-security-enterprise-haproxy-ee.yaml  prod
+echo "## DEPLOYING HAPROXY SERVICE ##"
+docker stack deploy -c fx-security-enterprise-haproxy-ee.yaml  "$tag"
 sleep 10
 docker service ls
 sleep 5
 
-echo "Services Successfully Refreshed"
-
-
-
-
- 
-
+echo " "$tag" SERVICES SUCCESSFULLY REFRESHED!!! "
