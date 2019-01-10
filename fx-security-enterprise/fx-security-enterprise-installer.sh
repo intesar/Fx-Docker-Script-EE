@@ -28,6 +28,8 @@ sudo systemctl enable docker
 #2.	Activate docker-swarm mode
 sudo docker swarm init
 
+echo "## Pulling latest build fxlabs images ##"
+
 #3.	Pull fx-security-enterprise docker images (based on the tag input)
 docker pull fxlabs/control-plane-ee:"$tag"
 docker pull fxlabs/vc-git-skill-bot-ee:"$tag"
@@ -36,12 +38,15 @@ docker pull fxlabs/notification-email-skill-bot-ee:"$tag"
 docker pull fxlabs/issue-tracker-github-skill-bot-ee:"$tag"
 docker pull fxlabs/issue-tracker-jira-skill-bot-ee:"$tag"
 
+echo "## Creating required volumes ##"
+
 #4.	Create folder for docker volumes. Optionally, user can mount external drives at these locations.
 mkdir -p /fx-security-enterprise/postgres/data
 mkdir -p /fx-security-enterprise/elasticsearch/data
 mkdir -p /fx-security-enterprise/rabbitmq/data
 mkdir -p /fx-security-enterprise/haproxy
 
+echo "## CREATING SELF-SIGNED CERTIFICATE ##"
 #5.	Self-signed certificate creation.
 # All the cert files (fxcloud.key, fxcloud.crt, fxcloud.pem, and haproxy.cfg) should be moved to /fx-security-enterprise/haproxy folder
 SSL_DIR="/fx-security-enterprise/haproxy"
@@ -66,10 +71,11 @@ ST="$State"
 O="$Organization"
 OU="$OrganizationalUnit"
 "
-
+echo "## CREATING SSL DIRECTORY ##"
 # Create our SSL directory in case it doesn't exist
 sudo mkdir -p "$SSL_DIR"
 
+echo "## GENERATING CERTIFICATE FILES ##"
 # Generate our Private Key, CSR and Certificate
 sudo openssl genrsa -out "$SSL_DIR/fxcloud.key" 2048
 sudo openssl req -new -subj "$(echo -n "$SUBJ" | tr "\n" "/")" -key "$SSL_DIR/fxcloud.key" -out "$SSL_DIR/fxcloud.csr" -passin pass:"$Passphrase"
@@ -80,6 +86,7 @@ sysctl -w vm.max_map_count=262144
 source .env
 export $(cut -d= -f1 .env)
 
+echo "## GENERATING RANDOM PASSWORD FOR POSTGRES AND RABBITMQ ##"
 # RabbitMQ
 # Generate and set random password for “POSTGRES_PASSWORD” in .env
 POSTGRES_PASSWORD="$(openssl rand -base64 12)"
@@ -93,6 +100,7 @@ sed -i "s|RABBITMQ_DEFAULT_PASS=.*|RABBITMQ_DEFAULT_PASS=$RABBITMQ_DEFAULT_PASS|
 RABBITMQ_AGENT_PASS="$(openssl rand -base64 12)"
 sed -i "s|RABBITMQ_AGENT_PASS=.*|RABBITMQ_AGENT_PASS=$RABBITMQ_AGENT_PASS|g" .env
 
+echo "## DEPLOYING POSTGRES, ELASTICSEARCH & RABBITMQ SERVICES  ##"
 # Run Docker stack deploy
 docker stack deploy -c fx-security-enterprise-data-ee.yaml prod
 sleep 30
@@ -100,14 +108,22 @@ sleep 30
 # RabbitMQ Scanbot password (These commands need to executed on RabbitMQ container)
 docker exec $(docker ps -q -f name=fx-rabbitmq) rabbitmqctl add_user fx_bot_user ${RABBITMQ_AGENT_PASS}
 docker exec $(docker ps -q -f name=fx-rabbitmq) rabbitmqctl set_permissions -p fx fx_bot_user "" ".*" ".*"
+
+echo "## DEPLOYING CONTROL-PLANE SERVICE ##"
 docker stack deploy -c fx-security-enterprise-control-plane-ee.yaml prod
 sleep 60
+
+echo "## DEPLOYING DEPENDENT SERVICES ##"
 docker stack deploy -c fx-security-enterprise-dependents-ee.yaml prod
 sleep 50
+
+echo "## GENERATING PEM FILE FOR HAPROXY ##"
 sudo cat /fx-security-enterprise/haproxy/fxcloud.crt /fx-security-enterprise/haproxy/fxcloud.key \ | sudo tee /fx-security-enterprise/haproxy/fxcloud.pem
 sleep 10
+
+echo "## DEPLOYING HAPROXY SERVICE ##"
 docker stack deploy -c fx-security-enterprise-haproxy-ee.yaml prod
 sleep 10
 docker service ls
 sleep 5
-echo "Production Is Up and Running Now!!!"
+echo "SERVICES HAVE BEEN DEPLOYED SUCCESSFULLY!!!"
