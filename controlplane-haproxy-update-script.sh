@@ -19,7 +19,7 @@
 ## "run below command from path of the above files
 ## ./controlplane-haproxy-update-script.sh
 
-read -p "Enter tag: " tag
+read -p "Enter image tag: " tag
 
 
 ##cd /opt/fx/uat/Fx-Docker-Script/
@@ -28,36 +28,41 @@ export $(cut -d= -f1 .env)
 
 ############ Pulling latest build fxlabs images ############
 
-echo "Pulling latest build fxlabs/control-plane image"
+echo "## PULLING LATEST BUILD FXLABS/CONTROL-PLANE IMAGE ##"
 
 
 # pull images on other nodes.
 docker pull fxlabs/control-plane:"$tag"
 
+echo "## ENTER STACK NAME TAG (as uat1) ##"
 
-
+read -p "Enter stack name tag: " tag
 
 ### Removing & Deploying Control-Plane Service ############
 
-echo "Removing Control-Plane Service"
-docker service rm uat1_fx-control-plane
+echo "## REMOVING CONTROL-PLANE SERVICE ##"
+#docker service rm uat1_fx-control-plane
+docker service rm "$tag"_fx-control-plane
 
 sleep 5
 
-echo "Deploying Control-Plane Service"
-docker stack deploy -c docker-compose-control-plane.yaml uat1
+echo "DEPLOYING CONTROL-PLANE SERVICE"
+#docker stack deploy -c docker-compose-control-plane.yaml uat1
+docker stack deploy -c docker-compose-control-plane.yaml "$tag"
 sleep 30
 
 
 
 ### Removing & Deploying Haproxy ############
  
-echo "Removing Haproxy Service"
-docker service rm uat1_fx-haproxy
+echo "## REMOVING HAPROXY SERVICE ##"
+#docker service rm uat1_fx-haproxy
+docker service rm "$tag"_fx-haproxy
 sleep 5
 
-echo "Deploying Haproxy Service"
-docker stack deploy -c docker-compose-proxy.yaml uat1
+echo "DEPLOYING HAPROXY SERVICE"
+#docker stack deploy -c docker-compose-proxy.yaml uat1
+docker stack deploy -c docker-compose-proxy.yaml "$tag"
 sleep 10
 
 # remove unused images

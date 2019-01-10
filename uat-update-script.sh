@@ -27,7 +27,7 @@ export $(cut -d= -f1 .env)
 
 ############ Pulling latest build fxlabs images ############
 
-echo "Pulling latest build fxlabs images"
+echo "## PULLING LATEST BUILD FXLABS IMAGES ##"
 
 
 # pull images on other nodes.
@@ -41,37 +41,47 @@ docker pull fxlabs/issue-tracker-jira-skill-bot:"$tag"
 docker pull fxlabs/cloud-aws-skill-bot:"$tag"
 docker pull fxlabs/notification-slack-skill-bot:"$tag"
 
+echo "## ENTER STACK NAME TAG (as uat1) ##"
+
+read -p "Enter stack name tag: " tag
+
 
 
 ### Removing & Deploying Control-Plane Service ############
 
-echo "Removing Control-Plane Service"
-docker service rm uat1_fx-control-plane
+echo "## REMOVING CONTROL-PLANE SERVICE ##"
+#docker service rm uat1_fx-control-plane
+docker service rm "$tag"_fx-control-plane
 
 sleep 5
 
-echo "Deploying Control-Plane Service"
-docker stack deploy -c docker-compose-control-plane.yaml uat1
+echo "DEPLOYING CONTROL-PLANE SERVICE"
+#docker stack deploy -c docker-compose-control-plane.yaml uat1
+docker stack deploy -c docker-compose-control-plane.yaml "$tag"
 sleep 30
 
 ### Removing & Deploying dependent services ############
 
-echo "Removing Dependent Services"
-docker service rm uat1_fx-mail-bot uat1_fx-vc-git-skill-bot uat1_fx-it-github-skill-bot uat1_fx-it-fx-skill-bot uat1_fx-it-jira-skill-bot uat1_fx-cloud-aws-skill-bot uat1_fx-notification-slack-skill-bot
+echo "## REMOVING DEPENDENT SERVICES ##"
+#docker service rm uat1_fx-mail-bot uat1_fx-vc-git-skill-bot uat1_fx-it-github-skill-bot uat1_fx-it-fx-skill-bot uat1_fx-it-jira-skill-bot uat1_fx-cloud-aws-skill-bot uat1_fx-notification-slack-skill-bot
+docker service rm "$tag"_fx-mail-bot "$tag"_fx-vc-git-skill-bot "$tag"_fx-it-github-skill-bot "$tag"_fx-it-fx-skill-bot "$tag"_fx-it-jira-skill-bot "$tag"_fx-cloud-aws-skill-bot "$tag"_fx-notification-slack-skill-bot
 sleep 5
 
-echo "Deploying Dependent Services"
-docker stack deploy -c docker-compose-dependents.yaml uat1
+echo "## DEPLOYING DEPENDENT SERVICES ##"
+#docker stack deploy -c docker-compose-dependents.yaml uat1
+docker stack deploy -c docker-compose-dependents.yaml "$tag"
 sleep 60
 
 ### Removing & Deploying Haproxy ############
  
-echo "Removing Haproxy Service"
-docker service rm uat1_fx-haproxy
+echo "## REMOVING HAPROXY SERVICE ##"
+#docker service rm uat1_fx-haproxy
+docker service rm "$tag"_fx-haproxy
 sleep 5
 
-echo "Deploying Haproxy Service"
-docker stack deploy -c docker-compose-proxy.yaml uat1
+echo "## DEPLOYING HAPROXY SERVICE ##"
+#docker stack deploy -c docker-compose-proxy.yaml uat1
+docker stack deploy -c docker-compose-proxy.yaml "$tag"
 sleep 10
 
 # remove unused images
