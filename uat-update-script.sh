@@ -55,7 +55,7 @@ docker service rm "$tag"_fx-control-plane
 
 sleep 5
 
-echo "DEPLOYING CONTROL-PLANE SERVICE"
+echo "## DEPLOYING CONTROL-PLANE SERVICE ##"
 #docker stack deploy -c docker-compose-control-plane.yaml uat1
 docker stack deploy -c docker-compose-control-plane.yaml "$tag"
 sleep 30

@@ -39,34 +39,45 @@ docker pull fxlabs/notification-slack-skill-bot:"$tag"
 source .env
 export $(cut -d= -f1 .env)
 
+echo "## ENTER STACK NAME TAG (as prod) ##"
+
+read -p "Enter stack name tag: " tag
+
+
 ### Removing & Deploying Control-Plane Service ############
 
-echo "Removing Control-Plane Service"
-docker service rm prod_fx-control-plane
+echo "## REMOVING CONTROL-PLANE SERVICE ##"
+#docker service rm prod_fx-control-plane
+docker service rm "$tag"_fx-control-plane
 sleep 5
 
-echo "Deploying Control-Plane Service"
-docker stack deploy -c docker-compose-control-plane.yaml prod
+echo "## DEPLOYING CONTROL-PLANE SERVICE ##"
+#docker stack deploy -c docker-compose-control-plane.yaml prod
+docker stack deploy -c docker-compose-control-plane.yaml "$tag"
 sleep 60
 
 ### Removing & Deploying dependent services ############
-
-echo "Removing Dependent Services"
-docker service rm prod_fx-mail-bot prod_fx-vc-git-skill-bot prod_fx-it-github-skill-bot prod_fx-it-jira-skill-bot prod_fx-cloud-aws-skill-bot prod_fx-notification-slack-skill-bot
+echo "## REMOVING DEPENDENT SERVICES ##"
+#docker service rm prod_fx-mail-bot prod_fx-vc-git-skill-bot prod_fx-it-github-skill-bot prod_fx-it-jira-skill-bot prod_fx-cloud-aws-skill-bot prod_fx-notification-slack-skill-bot
+docker service rm "$tag"_fx-mail-bot "$tag"_fx-vc-git-skill-bot "$tag"_fx-it-github-skill-bot "$tag"_fx-it-jira-skill-bot "$tag"_fx-cloud-aws-skill-bot "$tag"_fx-notification-slack-skill-bot
 sleep 10
 
-echo "Deploying Dependent Services"
-docker stack deploy -c docker-compose-dependents.yaml prod
+echo "## DEPLOYING DEPENDENT SERVICES ##"
+#docker stack deploy -c docker-compose-dependents.yaml prod
+docker stack deploy -c docker-compose-dependents.yaml "$tag"
 sleep 30
 
 ### Removing & Deploying Haproxy ############
-# 
-echo "Removing Haproxy Service"
-docker service rm prod_fx-haproxy
+ 
+echo "## REMOVING HAPROXY SERVICE ##"
+#docker service rm prod_fx-haproxy
+docker service rm "$tag"_fx-haproxy
 sleep 5
 
-echo "Deploying Haproxy Service"
-docker stack deploy -c docker-compose-proxy.yaml  prod
+echo "## DEPLOYING HAPROXY SERVICE ##"
+#docker stack deploy -c docker-compose-proxy.yaml  prod
+docker stack deploy -c docker-compose-proxy.yaml  "$tag"
+
 sleep 10
 
 docker service ls
