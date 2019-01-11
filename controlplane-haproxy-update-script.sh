@@ -42,14 +42,14 @@ docker pull fxlabs/control-plane:$1
 
 echo "## REMOVING CONTROL-PLANE SERVICE ##"
 #docker service rm uat1_fx-control-plane
-docker service rm "$tag"_fx-control-plane
+#docker service rm "$tag"_fx-control-plane
 docker service rm $2_fx-control-plane
 
 sleep 5
 
 echo "DEPLOYING CONTROL-PLANE SERVICE"
 #docker stack deploy -c docker-compose-control-plane.yaml uat1
-docker stack deploy -c docker-compose-control-plane.yaml "$tag"
+#docker stack deploy -c docker-compose-control-plane.yaml "$tag"
 docker stack deploy -c docker-compose-control-plane.yaml $2
 sleep 30
 
