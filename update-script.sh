@@ -7,23 +7,22 @@
 # 2.	docker-compose-data.yaml
 # 3.	docker-compose-control-plane.yaml
 # 4.	docker-compose-dependents.yaml
-# 5.	fx-security-enterprise-proxy.yaml
+# 5.	docker-compose-proxy.yaml
 # 6.	haproxy.cfg
-# 7.	fx-security-enterprise-installer.sh
-# 8.    fx-security-enterprise-update.sh
+# 8.    update-script.sh
 
-## sudo chmod 755 -R /Fx-Docker-Script
+## sudo chmod 744 -R /Fx-Docker-Script/update-script.sh
 ## cd /path-of-these-files eg. cd /Fx-Docker-Script 
 ## sudo su
 ## "run below command from path of the above files
-## ./fx-uat-update-script.sh
+## ./update-script.sh
 
 #read -p "Enter tag: " tag
 
 
 ##cd /opt/fx/uat/Fx-Docker-Script/
-source .env
-export $(cut -d= -f1 .env)
+source .$3
+export $(cut -d= -f1 .$3)
 
 ############ Pulling latest build fxlabs images ############
 
@@ -67,6 +66,7 @@ sleep 30
 echo "## REMOVING DEPENDENT SERVICES ##"
 #docker service rm uat1_fx-mail-bot uat1_fx-vc-git-skill-bot uat1_fx-it-github-skill-bot uat1_fx-it-fx-skill-bot uat1_fx-it-jira-skill-bot uat1_fx-cloud-aws-skill-bot uat1_fx-notification-slack-skill-bot
 #docker service rm "$tag"_fx-mail-bot "$tag"_fx-vc-git-skill-bot "$tag"_fx-it-github-skill-bot "$tag"_fx-it-fx-skill-bot "$tag"_fx-it-jira-skill-bot "$tag"_fx-cloud-aws-skill-bot "$tag"_fx-notification-slack-skill-bot
+
 docker service rm $2_fx-mail-bot $2_fx-vc-git-skill-bot $2_fx-it-github-skill-bot $2_fx-it-fx-skill-bot $2_fx-it-jira-skill-bot $2_fx-cloud-aws-skill-bot $2_fx-notification-slack-skill-bot
 sleep 5
 
