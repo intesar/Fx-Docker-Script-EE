@@ -15,7 +15,12 @@
 ## cd /path-of-these-files eg. cd /Fx-Docker-Script 
 ## sudo su
 ## "run below command from path of the above files
-## ./update-script.sh
+
+## FOR UAT
+## ./update-script.sh latest uat1 env
+
+## FOR PROD
+##./update-script.sh latest prod env-prod
 
 #read -p "Enter tag: " tag
 
@@ -37,7 +42,7 @@ echo "## PULLING LATEST BUILD FXLABS IMAGES ##"
 # pull images on other nodes.
 docker pull fxlabs/control-plane:"$ImageTag"
 docker pull fxlabs/vc-git-skill-bot:"$ImageTag"
-docker pull fxlabs/bot:$ImageTag
+docker pull fxlabs/bot:"$ImageTag"
 docker pull fxlabs/notification-email-skill-bot:"$ImageTag"
 docker pull fxlabs/issue-tracker-github-skill-bot:"$ImageTag"
 docker pull fxlabs/issue-tracker-fx-skill-bot:"$ImageTag"
@@ -65,6 +70,7 @@ sleep 5
 echo "## DEPLOYING CONTROL-PLANE SERVICE ##"
 #docker stack deploy -c docker-compose-control-plane.yaml uat1
 #docker stack deploy -c docker-compose-control-plane.yaml "$tag"
+
 docker stack deploy -c docker-compose-control-plane.yaml "$StackName"
 sleep 30
 

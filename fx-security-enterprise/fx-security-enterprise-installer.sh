@@ -11,7 +11,7 @@
 # 6.	haproxy.cfg
 # 7.	fx-security-enterprise-installer.sh
 
-read -p "Enter image tag: " tag
+#read -p "Enter image tag: " tag
 
 echo "## INSTALLING DOCKER ##"
 #1.	Install docker (latest)
@@ -48,7 +48,7 @@ echo "## PULLING LATEST BUILD FXLABS IMAGES ##"
 #3.	Pull fx-security-enterprise docker images (based on the tag input)
 docker pull fxlabs/control-plane-ee:"$ImageTag"
 docker pull fxlabs/vc-git-skill-bot-ee:"$ImageTag"
-docker pull fxlabs/bot-ee:""$ImageTag"
+docker pull fxlabs/bot-ee:"$ImageTag"
 docker pull fxlabs/notification-email-skill-bot-ee:"$ImageTag"
 docker pull fxlabs/issue-tracker-github-skill-bot-ee:"$ImageTag"
 docker pull fxlabs/issue-tracker-jira-skill-bot-ee:"$ImageTag"

@@ -64,7 +64,7 @@ sleep 3
 
 echo "DEPLOYING CONTROL-PLANE SERVICE"
 #docker stack deploy -c fx-security-enterprise-control-plane-ee.yaml "$tag"
-docker stack deploy -c fx-security-enterprise-control-plane-ee.yaml $2
+#docker stack deploy -c fx-security-enterprise-control-plane-ee.yaml $2
 
 docker stack deploy -c fx-security-enterprise-control-plane-ee.yaml "$StackName"
 sleep 30
