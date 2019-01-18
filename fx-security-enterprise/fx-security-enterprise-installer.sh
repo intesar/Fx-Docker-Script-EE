@@ -11,7 +11,7 @@
 # 6.	haproxy.cfg
 # 7.	fx-security-enterprise-installer.sh
 
-#read -p "Enter image tag: " tag
+read -p "Enter image tag: " tag
 
 echo "## INSTALLING DOCKER ##"
 #1.	Install docker (latest)
@@ -30,31 +30,18 @@ echo "## ACTIVATING DOCKER-SWARM MODE ##"
 #2.	Activate docker-swarm mode
 sudo docker swarm init
 
-ImageTag=$1
-StackName=$2
-Passphrase=$3
-CommonName=$4
-Country=$5
-City=$6
-State=$7
-Organization=$8
-OrganizationalUnit=$9
-
-
-
-
 echo "## PULLING LATEST BUILD FXLABS IMAGES ##"
 
 #3.	Pull fx-security-enterprise docker images (based on the tag input)
-docker pull fxlabs/control-plane-ee:"$ImageTag"
-docker pull fxlabs/vc-git-skill-bot-ee:"$ImageTag"
-docker pull fxlabs/bot-ee:"$ImageTag"
-docker pull fxlabs/notification-email-skill-bot-ee:"$ImageTag"
-docker pull fxlabs/issue-tracker-github-skill-bot-ee:"$ImageTag"
-docker pull fxlabs/issue-tracker-jira-skill-bot-ee:"$ImageTag"
-docker pull fxlabs/issue-tracker-fx-skill-bot-ee:"$ImageTag"
-docker pull fxlabs/cloud-aws-skill-bot-ee:"$ImageTag"
-docker pull fxlabs/notification-slack-skill-bot-ee:"$ImageTag"
+docker pull fxlabs/control-plane-ee:"$tag"
+docker pull fxlabs/vc-git-skill-bot-ee:"$tag"
+docker pull fxlabs/bot-ee:""$tag"
+docker pull fxlabs/notification-email-skill-bot-ee:"$tag"
+docker pull fxlabs/issue-tracker-github-skill-bot-ee:"$tag"
+docker pull fxlabs/issue-tracker-jira-skill-bot-ee:"$tag"
+docker pull fxlabs/issue-tracker-fx-skill-bot-ee:"$tag"
+docker pull fxlabs/cloud-aws-skill-bot-ee:"$tag"
+docker pull fxlabs/notification-slack-skill-bot-ee:"$tag"
 
 
 echo "## CREATING REQUIRED VOLUMES ##"
@@ -73,13 +60,13 @@ cp haproxy.cfg $SSL_DIR
 
 # Let user customize certification creation with sensible defaults
 echo "Please enter info to generate SSL Private Key, CSR and Certificate"
-#read -p "Enter Passphrase for private key: " Passphrase
-#read -p "Enter Common Name (The Common Name is the Host + Domain Name. It looks like "www.company.com" or "company.com"): " CommonName
-#read -p "Enter Country (Use the two-letter code without punctuation for country, for example: US or CA): " Country
-#read -p "Enter City or Locality (The Locality field is the city or town name, for example: Berkeley): " City
-#read -p "Enter State or Province (Spell out the state completely; do not abbreviate the state or province name, for example: California): " State
-#read -p "Enter Organization: " Organization
-#read -p "Enter Organizational Unit (This field is the name of the department or organization unit making the request): "  OrganizationalUnit
+read -p "Enter Passphrase for private key: " Passphrase
+read -p "Enter Common Name (The Common Name is the Host + Domain Name. It looks like "www.company.com" or "company.com"): " CommonName
+read -p "Enter Country (Use the two-letter code without punctuation for country, for example: US or CA): " Country
+read -p "Enter City or Locality (The Locality field is the city or town name, for example: Berkeley): " City
+read -p "Enter State or Province (Spell out the state completely; do not abbreviate the state or province name, for example: California): " State
+read -p "Enter Organization: " Organization
+read -p "Enter Organizational Unit (This field is the name of the department or organization unit making the request): "  OrganizationalUnit
 
 # Set our CSR variables
 SUBJ="
@@ -120,13 +107,12 @@ RABBITMQ_AGENT_PASS="$(openssl rand -base64 12)"
 sed -i "s|RABBITMQ_AGENT_PASS=.*|RABBITMQ_AGENT_PASS=$RABBITMQ_AGENT_PASS|g" .env
 
 #echo "## ENTER STACK NAME TAG ##"
-#read -p "Enter stack name tag: " tag
+read -p "Enter stack name tag: " StackName
 
 echo "## DEPLOYING POSTGRES, ELASTICSEARCH & RABBITMQ SERVICES  ##"
 # Run Docker stack deploy
-#docker stack deploy -c fx-security-enterprise-data-ee.yaml "$tag"
+docker stack deploy -c fx-security-enterprise-data-ee.yaml "$tag"
 
-docker stack deploy -c fx-security-enterprise-data-ee.yaml "$StackName"
 sleep 30
 
 # RabbitMQ Scanbot password (These commands need to executed on RabbitMQ container)
@@ -134,15 +120,13 @@ docker exec $(docker ps -q -f name=fx-rabbitmq) rabbitmqctl add_user fx_bot_user
 docker exec $(docker ps -q -f name=fx-rabbitmq) rabbitmqctl set_permissions -p fx fx_bot_user "" ".*" ".*"
 
 echo "## DEPLOYING CONTROL-PLANE SERVICE ##"
-#docker stack deploy -c fx-security-enterprise-control-plane-ee.yaml "$tag"
-
 docker stack deploy -c fx-security-enterprise-control-plane-ee.yaml "$StackName"
+
 sleep 30
 
 echo "## DEPLOYING DEPENDENT SERVICES ##"
-#docker stack deploy -c fx-security-enterprise-dependents-ee.yaml "$tag"
-
 docker stack deploy -c fx-security-enterprise-dependents-ee.yaml "$StackName"
+
 sleep 10
 
 echo "## GENERATING PEM FILE FOR HAPROXY ##"
@@ -150,9 +134,8 @@ sudo cat /fx-security-enterprise/haproxy/fxcloud.crt /fx-security-enterprise/hap
 sleep 10
 
 echo "## DEPLOYING HAPROXY SERVICE ##"
-#docker stack deploy -c fx-security-enterprise-haproxy-ee.yaml "$tag"
-
 docker stack deploy -c fx-security-enterprise-haproxy-ee.yaml "$StackName"
+
 sleep 10
 docker service ls
 sleep 5
