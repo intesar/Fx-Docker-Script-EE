@@ -2,7 +2,7 @@ version: '3.5'
 # networking
 # volumes
 services:
-  fx-mail-bot-ee:
+  fx-mail-bot:
     image: "fxlabs/notification-email-skill-bot-ee:latest"
     #autodestroy: ALWAYS
     #autorestart: ON_FAILURE
@@ -31,7 +31,7 @@ services:
 
     # inject rabbit-host, port, vhost, user-mail, user-mail-pass
 
-  fx-vc-git-skill-bot-ee:
+  fx-vc-git-skill-bot:
     image: "fxlabs/vc-git-skill-bot-ee:latest"
     #autodestroy: ALWAYS
     #autorestart: ON_FAILURE
@@ -60,7 +60,7 @@ services:
 
     # inject rabbit-host, port, vhost, user-sync, user-sync-pass
 
-  fx-it-github-skill-bot-ee:
+  fx-it-github-skill-bot:
     image: "fxlabs/issue-tracker-github-skill-bot-ee:latest"
     #autodestroy: ALWAYS
     #autorestart: ON_FAILURE
@@ -87,7 +87,7 @@ services:
       options:
         tag: "{{.Name}}/{{.ID}}"
 
-  fx-it-jira-skill-bot-ee:
+  fx-it-jira-skill-bot:
     image: "fxlabs/issue-tracker-jira-skill-bot-ee:latest"
     #autodestroy: ALWAYS
     #autorestart: ON_FAILURE
@@ -114,7 +114,7 @@ services:
       options:
         tag: "{{.Name}}/{{.ID}}"
 
-  fx-it-fx-skill-bot-ee:
+  fx-it-fx-skill-bot:
     image: "fxlabs/issue-tracker-fx-skill-bot-ee:latest"
     deploy:
       replicas: 1
@@ -135,7 +135,7 @@ services:
       options:
         tag: "{{.Name}}/{{.ID}}"
 
-  fx-notification-slack-skill-bot-ee:
+  fx-notification-slack-skill-bot:
     image: "fxlabs/notification-slack-skill-bot-ee:latest"
     #autodestroy: ALWAYS
     #autorestart: ON_FAILURE
@@ -162,7 +162,7 @@ services:
       options:
         tag: "{{.Name}}/{{.ID}}"
 
-  fx-cloud-aws-skill-bot-ee:
+  fx-cloud-aws-skill-bot:
     image: "fxlabs/cloud-aws-skill-bot-ee:latest"
     #autodestroy: ALWAYS
     #autorestart: ON_FAILURE

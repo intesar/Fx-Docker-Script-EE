@@ -2,7 +2,7 @@ version: '3.5'
 # networking
 # volumes
 services:
-  fx-control-plane-ee:
+  fx-control-plane:
     image: "fxlabs/control-plane-ee:latest"
     #autodestroy: ALWAYS
     #autorestart: ON_FAILURE

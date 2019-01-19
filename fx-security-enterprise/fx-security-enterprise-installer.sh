@@ -4,10 +4,10 @@
 
 # Installer folder should have the following files
 # 1.	.env
-# 2.	fx-security-enterprise-data-ee.yaml
-# 3.	fx-security-enterprise-control-plane-ee.yaml
-# 4.	fx-security-enterprise-dependents-ee.yaml
-# 5.	fx-security-enterprise-haproxy-ee.yaml
+# 2.	fx-security-enterprise-data.yaml
+# 3.	fx-security-enterprise-control-plane.yaml
+# 4.	fx-security-enterprise-dependents.yaml
+# 5.	fx-security-enterprise-haproxy.yaml
 # 6.	haproxy.cfg
 # 7.	fx-security-enterprise-installer.sh
 
@@ -111,7 +111,7 @@ read -p "Enter stack name tag: " StackName
 
 echo "## DEPLOYING POSTGRES, ELASTICSEARCH & RABBITMQ SERVICES  ##"
 # Run Docker stack deploy
-docker stack deploy -c fx-security-enterprise-data-ee.yaml "$tag"
+docker stack deploy -c fx-security-enterprise-data.yaml "$StackName"
 
 sleep 30
 
@@ -120,12 +120,12 @@ docker exec $(docker ps -q -f name=fx-rabbitmq) rabbitmqctl add_user fx_bot_user
 docker exec $(docker ps -q -f name=fx-rabbitmq) rabbitmqctl set_permissions -p fx fx_bot_user "" ".*" ".*"
 
 echo "## DEPLOYING CONTROL-PLANE SERVICE ##"
-docker stack deploy -c fx-security-enterprise-control-plane-ee.yaml "$StackName"
+docker stack deploy -c fx-security-enterprise-control-plane.yaml "$StackName"
 
 sleep 30
 
 echo "## DEPLOYING DEPENDENT SERVICES ##"
-docker stack deploy -c fx-security-enterprise-dependents-ee.yaml "$StackName"
+docker stack deploy -c fx-security-enterprise-dependents.yaml "$StackName"
 
 sleep 10
 
@@ -134,7 +134,7 @@ sudo cat /fx-security-enterprise/haproxy/fxcloud.crt /fx-security-enterprise/hap
 sleep 10
 
 echo "## DEPLOYING HAPROXY SERVICE ##"
-docker stack deploy -c fx-security-enterprise-haproxy-ee.yaml "$StackName"
+docker stack deploy -c fx-security-enterprise-haproxy.yaml "$StackName"
 
 sleep 10
 docker service ls
