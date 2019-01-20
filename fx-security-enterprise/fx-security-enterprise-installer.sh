@@ -52,6 +52,8 @@ mkdir -p /fx-security-enterprise/elasticsearch/data
 mkdir -p /fx-security-enterprise/rabbitmq/data
 mkdir -p /fx-security-enterprise/haproxy
 
+docker config create elasticsearch.yml elasticsearch.yml
+
 echo "## CREATING SELF-SIGNED CERTIFICATE ##"
 #5.	Self-signed certificate creation.
 # All the cert files (fxcloud.key, fxcloud.crt, fxcloud.pem, and haproxy.cfg) should be moved to /fx-security-enterprise/haproxy folder
