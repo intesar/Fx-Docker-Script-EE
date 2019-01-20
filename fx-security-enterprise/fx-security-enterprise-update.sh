@@ -1,5 +1,5 @@
 ﻿#!/bin/bash -x
-# FX security enterprise installer script https://fxlabs.io/
+# FX security enterprise update script https://fxlabs.io/
 # 2019-01-08
 
 # Installer folder should have the following files
@@ -12,11 +12,12 @@
 # 7.	fx-security-enterprise-installer.sh
 # 8.    fx-security-enterprise-update.sh
 
-# sudo chmod 755 -R /Fx-Docker-Script/fx-security-enterprise
-# cd /path-of-these-files eg. cd /fx-security-enterprise/ 
+# sudo chmod 744-R /Fx-Docker-Script-EE/fx-security-enterprise/fx-security-enterprise-update.sh
+# cd /path-of-these-files eg. cd /Fx-Docker-Script-EE/fx-security-enterprise/ 
 # sudo su
-# "run below command from path of the above files
-#### ./fx-security-enterprise-update.sh latest PROD env
+# "run below command with appropriate and respective parameters  from path of the above files
+#### ./fx-security-enterprise-update.sh   <ImageTag> <StackName> <envFileName>
+### eg: ./fx-security-enterprise-update.sh  latest      PROD        env
 
 #read -p "Enter image tag: " tag
 
@@ -48,6 +49,7 @@ docker pull fxlabs/notification-slack-skill-bot-ee:"$ImageTag"
 #source .env
 #export $(cut -d= -f1 .env)
 #echo "ENTER STACK NAME TAG "
+
 source ."$env"
 export $(cut -d= -f1 ."$env")
 

@@ -1,4 +1,4 @@
-﻿#!/bin/bash -x
+﻿##!/bin/bash -x
 # FX security enterprise installer script https://fxlabs.io/
 # 20181224
 
