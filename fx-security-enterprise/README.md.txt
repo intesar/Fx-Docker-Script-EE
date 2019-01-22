@@ -29,7 +29,7 @@
       xi. Enter State or Province (Spell out the state completely; do not abbreviate the state or province name, for example: California): California ( or something appropriate)
      xii. Enter Organization: company ( or something appropriate)
     xiii. Enter Organizational Unit (This field is the name of the department or organization unit making the request): Telecom ( or something appropriate) 
-     xiv. Copy & Paste ìTHIS  FX-IAM KEY ìj9CREJyf0upRLsrDî IN SYSTEM-SETTING OF WEB_URL AFTER LOGINî (Its randomly generated & will be different for each fresh setup, use that one of setup time)
+     xiv. Copy & Paste ‚ÄúTHIS  FX-IAM KEY ‚Äúj9CREJyf0upRLsrD‚Äù IN SYSTEM-SETTING OF WEB_URL AFTER LOGIN‚Äù (Its randomly generated & will be different for each fresh setup, use that one of setup time)
       xv. Enter stack name tag: UAT (or something appropriate)
     
 Result: FxLabs Services were successfully deployed.
@@ -59,13 +59,13 @@ Result:  Update settings changes were successful.
       i. After login with username: admin@fxlabs.local & password: fxadmin123 , Under Services, click on Scanner Network 
      ii. On Scanner Page click on Private Scanners
     iii. Click on New Scanner
-     iv. Give some name for scanner like EAST_US & Click on ìCreate Self Hosted Scanner & Completeî 
-      v. When a pop-up comes up ìRun the below command on any Linux/Windows/Mac system with Docker installedî click on ìcopyî to copy the command to create a scanner & then click  on ìOk"
+     iv. Give some name for scanner like EAST_US & Click on ‚ÄúCreate Self Hosted Scanner & Complete‚Äù 
+      v. When a pop-up comes up ‚ÄúRun the below command on any Linux/Windows/Mac system with Docker installed‚Äù click on ‚Äúcopy‚Äù to copy the command to create a scanner & then click  on ‚ÄúOk"
      vi. Scroll down and click on check status 
-    vii. A pop-up will come with a message saying "Not reachable!", click on ìokî
-   viii. Now copy the command to create a scanner and paste it in the VMís console terminal and hit Enter (Where Fxlabs services are running)
-     ix. Type ìdocker psî to check whether container got created or not 
-      x. Now go to browser & again click on ìCheck statusî, this time pop-up will come up with a message Status: Ok! & then click on Ok
+    vii. A pop-up will come with a message saying "Not reachable!", click on ‚Äúok‚Äù
+   viii. Now copy the command to create a scanner and paste it in the VM‚Äôs console terminal and hit Enter (Where Fxlabs services are running)
+     ix. Type ‚Äúdocker ps‚Äù to check whether container got created or not 
+      x. Now go to browser & again click on ‚ÄúCheck status‚Äù, this time pop-up will come up with a message Status: Ok! & then click on Ok
      xi. click on Save
    
 Result: Self_Hosted scanner for running jobs successfully created.
@@ -76,23 +76,15 @@ Result: Self_Hosted scanner for running jobs successfully created.
      ii. Give a Name for APP/porject name like "test" and copy & paste this http://54.215.136.217/v2/api-docs OpenAPISpec url in the second field   
     iii. Click on "Save & Complete" to create Test API Project.
      iv. Click on Test project 
-      v. Then on proejct page, click on ìAuto Coverageî
-     vi. On next page, click on ìRBACî , ABAC (Level1),ABAC (Level2),ABAC(Level3) and to activate, click on  check boxes to uncheck them & to generate scripts.  or to activate all categories, click on ìActivate ALL Categoriesî to generate all scripts for running jobs.
-         a pop-up comes up to ìcreate credentials for userA, uesrB & userCî in environment section for ABAC(Level 1,2,3), click on "ok"
-    vii. Scroll down and click on ìSave configurationî
+      v. Then on proejct page, click on ‚ÄúAuto Coverage‚Äù
+     vi. On next page, click on ‚ÄúRBAC‚Äù , ABAC (Level1),ABAC (Level2),ABAC(Level3) and to activate, click on  check boxes to uncheck them & to generate scripts.  or to activate all categories, click on ‚ÄúActivate ALL Categories‚Äù to generate all scripts for running jobs.
+         a pop-up comes up to ‚Äúcreate credentials for userA, uesrB & userC‚Äù in environment section for ABAC(Level 1,2,3), click on "ok"
+    vii. Scroll down and click on ‚ÄúSave configuration‚Äù
    viii. An AutoCode pop-up will come, click on "ok' to generate scripts for all selected categories
-     ix. Click on ìScriptsî Tab to view all generated scripts for selected categories
-      x. Click on project ìTestî and then click on ìRunî for Default job
-     xi. A run pop-up will come, select required categories from drop-down list of ìTest Categoriesî  and a scanner for running job
+     ix. Click on ‚ÄúScripts‚Äù Tab to view all generated scripts for selected categories
+      x. Click on project ‚ÄúTest‚Äù and then click on ‚ÄúRun‚Äù for Default job
+     xi. A run pop-up will come, select required categories from drop-down list of ‚ÄúTest Categories‚Äù  and a scanner for running job
     xii. Click on run, it will take us to job running page
    xiii. Click on running job number to see progress of running job
    
-Result: Job completed successfully   
-      
-
-
-
-
-
-
-    
+Result: Job completed successfully    
