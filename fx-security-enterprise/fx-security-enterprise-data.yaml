@@ -38,7 +38,6 @@ services:
       - ES_JAVA_OPTS=${ELASTICSEARCH_MEM}
     volumes:
       - esdata:/usr/share/elasticsearch/data
-#      - /home/ubuntu/Fx-Docker-Script-EE/fx-security-enterprise/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
     configs:
       - source: elasticsearch.yml
         target: /usr/share/elasticsearch/config/elasticsearch.yml
