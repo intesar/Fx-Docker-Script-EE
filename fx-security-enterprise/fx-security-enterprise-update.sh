@@ -1,4 +1,4 @@
-﻿#!/bin/bash -x
+#!/bin/bash -x
 # FX security enterprise update script https://fxlabs.io/
 # 2019-01-08
 
