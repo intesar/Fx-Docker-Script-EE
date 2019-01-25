@@ -1,4 +1,4 @@
-﻿##!/bin/bash -x
+##!/bin/bash -x
 # FX security enterprise installer script https://fxlabs.io/
 # 20181224
 
@@ -110,7 +110,7 @@ RABBITMQ_AGENT_PASS="$(openssl rand -base64 12)"
 sed -i "s|RABBITMQ_AGENT_PASS=.*|RABBITMQ_AGENT_PASS=$RABBITMQ_AGENT_PASS|g" .env
 
 
-echo "PLACE THIS FX-IAM KEY "${RABBITMQ_AGENT_PASS}"  IN SYSTEM-SETTING OF WEB_URL AFTER LOGIN "
+echo "PLACE THIS FX_IAM KEY "${RABBITMQ_AGENT_PASS}"  IN HOMEPAGE->Administrator(Default)->Settings-><FX_IAM* Field> OF WEB_URL AFTER LOGIN "
 #echo "## ENTER STACK NAME TAG ##"
 read -p "Enter stack name tag: " StackName
 
