@@ -57,7 +57,7 @@ Result: FxLabs Services were successfully deployed.
      iii. chmod 744 fx-security-enterprise-update.sh
 
       iv. docker service ls 
-###  (copy & paste appropriate <StackName> as second parameter in below command, it will be initial prefix of all services, like in this service "UAT_fx-control-plane",  stack name is "UAT" ) ####
+### Note!!!  (copy & paste appropriate <StackName> as second parameter in below command, it will be initial prefix of all services, like in this service "UAT_fx-control-plane",  stack name is "UAT" ) ####
  
        v. ./fx-security-enterprise-update.sh latest <StackName> env
 
