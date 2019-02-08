@@ -33,6 +33,7 @@ services:
 
   fx-vc-git-skill-bot:
     image: "fxlabs/vc-git-skill-bot-ee:latest"
+    hostname: fxlabs-vc-git
     #autodestroy: ALWAYS
     #autorestart: ON_FAILURE
     #autoredeploy: true
