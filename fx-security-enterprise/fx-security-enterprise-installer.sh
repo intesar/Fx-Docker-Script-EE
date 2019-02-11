@@ -147,3 +147,31 @@ sleep 5
 docker ps
 sleep 5
 echo "$StackName" "SERVICES HAVE BEEN DEPLOYED SUCCESSFULLY!!!"
+
+echo "### Auto-Update Feature ##"
+read -p "Is AutoUpdate Needed: Yes or No  " AutoUpdate
+var1="yes"
+var2="yeS"
+var3="yEs"
+var4="yES"
+var5="Yes"
+var6="YeS"
+var7="YEs"
+var8="YES"
+if [ "$var1" = "$AutoUpdate"  -o  "$var2" = "$AutoUpdate" -o "$var3" = "$AutoUpdate" -o "$var4" = "$AutoUpdate"  -o "$var5" = "$AutoUpdate"  -o "$var6" = "$AutoUpdate"  -o "$var7" = "$AutoUpdate"  -o "$var8" = "$AutoUpdate"   ];
+then
+   PWD_DIR=`pwd`
+   echo "$PWD_DIR"
+   USER=$(whoami)
+   echo "$USER"
+   chmod 744 fx-security-enterprise-autoupdate.sh
+   chmod 744 fx-security-enterprise-update.sh
+   echo "00 7    * * *   $USER    cd $PWD_DIR && ./fx-security-enterprise-autoupdate.sh" >> /etc/crontab
+   cat /etc/crontab
+   sleep 5
+   echo "Auto-Update of Fxlabs Services Was Opted"
+ 
+else
+   echo "Auto-Update of Fxlabs Services Was Not Opted"
+fi
+
