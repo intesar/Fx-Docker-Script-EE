@@ -1,5 +1,45 @@
 #!/bin/bash
-#STACKNAME=$(sudo docker stack ls --format {{.Name}})
+### NOTE!!! TO MAKE CRONJOB DON'T AUTO TRIGGER  "fx-security-enterprise-autoupdate.sh" FILE FOR UPDATING/REFRESHING OF FX-LABS SERVICES !!!! ###
+### CHANGE/PASS (NO,No,nO,no) AFTER  (=) SIGN,  TO THIS LINE "auto.deploy.active = " IN FXAutoDeploy.properties FILE ###
+### WHILE ANY OTHER CHARACTER TO THIS LINE "auto.deploy.active = " AFTER  (=) SIGN WILL TRIGGER "fx-security-enterprise-autoupdate.sh" FILE AND AUTO-REFRESHED FX-LABS SERVICES ###                                                                                                         
+
+whoami
+pwd
+ls
+compare="auto.deploy.active"
+PWD=`pwd`
+while IFS= read -r line
+do
+  rest="$line"
+   name="${line% =*}"
+   if [ "$compare" == "$name" ];
+   then
+    echo "This line content is needed"
+    echo "$name"
+   break
+   else
+    echo "This line content is not needed "
+   fi
+done <  $PWD/FXAutoDeploy.properties
+echo "$rest"
+test="${rest#*= }"
+echo "$test"
+sleep 15
+echo "Modified Line content is $test"
+var1=no
+var2=nO
+var3=No
+var4=NO
+if [ "$test" = "$var1" -o "test" = "$var2" -o "$test" = "$var3" -o "$test" = "$var4"  ];
+then
+    echo "Script Execution is Not Required"
+    exit 1
+else
+  echo "Script Execution is  required"
+  echo "$test"
+  echo "$name"
+sleep 10
+
 CONTAINERID=$(sudo docker ps -q -f name=fx-rabbitmq)
 echo "$CONTAINERID"
 sleep 5
@@ -8,6 +48,9 @@ echo "$STACKNAME"
 sleep 5
 ./fx-security-enterprise-update.sh latest $STACKNAME env
 sleep 30
+
+
+echo "### Running Containers Validation ####  "
 
 rabbitmqID=$(sudo docker ps -q -f name=fx-rabbitmq)
 echo "RabbitMQ ID is $rabbitmqID"
@@ -98,4 +141,19 @@ haproxyNAME=$(sudo docker inspect --format='{{index .Config.Labels "com.docker.s
 echo "Haproxy Container Name is $haproxyNAME"
 if [ $(docker inspect -f '{{.State.Running}}' $haproxyNAME) = "true" ]; then echo "fx-haproxy container $haproxyNAME  is running"; else echo "fx-haproxy container $haproxyNAME  is not running"; fi
 echo " "
-echo "Fxlabs Services Auto-Updated Successfully"
+
+sleep 10
+
+echo " "
+echo "Validting Whether localhost running or not"
+
+TARGET=localhost
+if curl -I "http://$TARGET"; then
+  echo "$TARGET alive and web site is up"
+else
+  echo "$TARGET offline or web server problem"
+fi
+echo " "
+echo "Fxlabs Services Auto-Updated Successfully!!!"
+fi
+
