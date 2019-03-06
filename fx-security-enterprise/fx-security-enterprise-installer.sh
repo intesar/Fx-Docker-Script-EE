@@ -152,9 +152,9 @@ echo "### Auto-Update Feature ##"
 read -p "Is AutoUpdate Needed: Yes or No: " AutoUpdate
 touch  FXAutoDeploy.properties
 echo "## FX Labs - Auto-Upgrade Feature (Beta) ##" >> FXAutoDeploy.properties
-#echo "auto.deploy.active = $AutoUpdate" >> FXAutoDeploy.properties
 echo "# To turn off this feature set the value to 'No' " >> FXAutoDeploy.properties
 echo "# default or an invalid value is considered 'Yes' " >> FXAutoDeploy.properties
+echo "auto.deploy.active = $AutoUpdate" >> FXAutoDeploy.properties
    PWD_DIR=`pwd`
    echo "$PWD_DIR"
    USER=$(whoami)
