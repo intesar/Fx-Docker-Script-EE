@@ -1,7 +1,8 @@
 #!/bin/bash
 ### NOTE!!! TO MAKE CRONJOB DON'T AUTO TRIGGER  "fx-security-enterprise-autoupdate.sh" FILE FOR UPDATING/REFRESHING OF FX-LABS SERVICES !!!! ###
-### CHANGE/PASS (NO,No,nO,no) AFTER  (=) SIGN,  TO THIS LINE "auto.deploy.active = " IN FXAutoDeploy.properties FILE (THIS FILE WILL BE CREATED AFTER  RUNNING "fx-security-enterprise-installer.sh" SCRIPT) ###
+### CHANGE/PASS (NO,No,nO,no) AFTER  (=) SIGN,  TO THIS LINE "auto.deploy.active = " IN FXAutoDeploy.properties FILE ### 
 ### WHILE ANY OTHER CHARACTER TO THIS LINE "auto.deploy.active = " AFTER  (=) SIGN WILL TRIGGER "fx-security-enterprise-autoupdate.sh" FILE AND AUTO-REFRESHED FX-LABS SERVICES ###                                                                                                         
+### (THIS CRONJOB AND "FXAutoDeploy.properties" FILE WILL BE CREATED AFTER  RUNNING "fx-security-enterprise-installer.sh" SCRIPT) ###
 
 whoami
 pwd
