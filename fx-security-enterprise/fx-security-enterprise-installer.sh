@@ -10,6 +10,7 @@
 # 5.	fx-security-enterprise-haproxy.yaml
 # 6.	haproxy.cfg
 # 7.	fx-security-enterprise-installer.sh
+# 8.  elasticsearch.yml
 
 read -p "Enter image tag: " tag
 
