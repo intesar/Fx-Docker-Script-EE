@@ -44,6 +44,10 @@ docker pull fxlabs/issue-tracker-fx-skill-bot-ee:"$tag"
 docker pull fxlabs/cloud-aws-skill-bot-ee:"$tag"
 docker pull fxlabs/notification-slack-skill-bot-ee:"$tag"
 
+docker pull postgres
+docker pull elasticsearch:5
+docker pull rabbitmq:management
+
 
 echo "## CREATING REQUIRED VOLUMES ##"
 
