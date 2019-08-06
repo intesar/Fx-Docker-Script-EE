@@ -154,7 +154,7 @@ sleep 5
 echo "$StackName" "SERVICES HAVE BEEN DEPLOYED SUCCESSFULLY!!!"
 
 echo "### Auto-Update Feature ##"
-read -p "Is AutoUpdate Needed: Yes or No: " AutoUpdate
+read -p "Is AutoUpdate of Fxlabs Services Needed: Yes or No: " AutoUpdate
 touch  FXAutoDeploy.properties
 echo "## FX Labs - Auto-Upgrade Feature (Beta) ##" >> FXAutoDeploy.properties
 echo "# To turn off this feature set the value to 'No' " >> FXAutoDeploy.properties
