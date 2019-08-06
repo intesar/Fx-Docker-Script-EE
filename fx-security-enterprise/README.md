@@ -38,17 +38,19 @@
           (Its randomly generated & will be different for each fresh setup, use the one of the setup time)
                  
       xv. Enter stack name tag: UAT (or something appropriate)
+      
+      xvi. Enter "Yes" if Auto-Updating of Fxlab Services are required OR Enter "No" if Auto-Updating of Fxlabs Services are not required.
          
 ### Once script execution gets completed run below commands to check whether services got deployed successfully or not ( In total 12 services and 12 containers running) ######### 
-     xvi. docker service ls (to check all running services, In total 12 services should be running)
-    xvii. docker ps         (to cehck all running containers, In total 12 containers should be running)
+     xvii. docker service ls (to check all running services, In total 12 services should be running)
+    xviii. docker ps         (to cehck all running containers, In total 12 containers should be running)
          
 Result: FxLabs Services were successfully deployed.
                           
                     
                    
                     
-################# How to run "fx-security-enterprise-update.sh" script for updating FXLABS services ############
+################# How to run "fx-security-enterprise-update.sh" script for manually triggering updating of FXLABS services ############
           
        i. cd  Fx-Docker-Script-EE/fx-security-enterprise/
 
